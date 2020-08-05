@@ -1,0 +1,27 @@
+@import 'src/styles/vars';
+
+#page {
+  & .page {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins';
+
+    &-select {
+      margin: 2em 0;
+    }
+
+    &-header {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: .5em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #page {
+  }  
+}

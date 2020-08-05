@@ -1,0 +1,12 @@
+@import 'src/styles/vars';
+
+#app {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Poppins;
+  background-color: $quasi-white;
+  height: 100vh;
+
+}

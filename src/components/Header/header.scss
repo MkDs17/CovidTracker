@@ -1,0 +1,51 @@
+@import 'src/styles/reset';
+@import 'src/styles/vars';
+
+#header {
+  width : 100%;
+
+  
+  .menu {
+    background-image: radial-gradient( circle farthest-corner at 22.4% 21.7%,  $primary-hover 0%, $primary 100.2% );
+    border: none;
+    border-radius: 0 0 2px 2px;
+    font-family: Poppins;    
+    
+    &-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & .item {
+      color: #fcfcfc;
+      font-weight: 500;
+      padding: .5em 2em;
+      font-size: .9em;
+
+      & .image {
+        margin-left: .3em
+      }
+    }
+    & .active.item {
+      background-color: rgba($primary-hover, .4);
+      text-shadow: 1px 1px 4px $primary-hover;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #header {
+    & .menu {
+
+      & a {
+        display: flex;
+      }
+
+      & .item {
+        font-size: .8em;
+        padding: .5em 1.5em;
+      }
+    }
+  }  
+}
