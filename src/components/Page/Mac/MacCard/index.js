@@ -89,7 +89,7 @@ function MacCard({ stat, numb }) {
                       end={stat.third.total}
                       duration={2}
                       separator=" "
-                  />
+                    />
                   </Feed.Summary>
                 </Feed.Content>
               </Feed.Event>

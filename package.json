@@ -57,9 +57,12 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "clean": "rm -rf dist",
+    "clean:all": "rm -rf dist node_modules",
+    "build:dev": "NODE_ENV=development webpack",
+    "build:dev:win": "set NODE_ENV=development && webpack",
+    "build:prod": "NODE_ENV=production webpack --mode production",
+    "build:prod:win": "set NODE_ENV=production && webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
