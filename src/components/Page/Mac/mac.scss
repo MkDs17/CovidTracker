@@ -1,0 +1,24 @@
+@import 'src/styles/vars';
+
+#mac {
+  width: 100%;
+
+  & .mac {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 1em 0;
+
+    &-title {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: .5em;
+    }
+    &-content {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+  }
+}

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'semantic-ui-react';
+import _ from 'lodash';
 
 import './page.scss';
 
 import Cards from './Cards';
+import Mac from './Mac';
 
-const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData }) => {
+import { getThreeMostAffected } from '../../utils/functions';
+
+const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, globalStats }) => {
   const [countriesOptions, setCountriesOptions] = useState([]);
   const [activeCountry, setActiveCountry] = useState('GLO');
   const [activeCountryName, setActiveCountryName] = useState('Global');
+  const [mostAffectedCountries, setmostAffectedCountries] = useState([]);
 
   useEffect(() => {
     let countriesArray = [{
@@ -17,18 +22,25 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData }) => {
       text: 'Global'
     }];
 
-    countries.map((country) => {
-      const data = {
-        key: country.iso3,
-        value: country.iso3,
-        text: country.name,
-      }
-      countriesArray.push(data);
-    })
+    if (countries !== null) {
+      countries.map((country) => {
+        const data = {
+          key: country.iso3,
+          value: country.iso3,
+          text: country.name,
+        }
+        countriesArray.push(data);
+      })
+    }
 
     setCountriesOptions(countriesArray);
 
-  }, [countries]);
+    if (globalStats != null & countries !== null ) {
+      let mac =(getThreeMostAffected(globalStats, countriesOptions));
+      setmostAffectedCountries(mac);
+    }
+
+  }, [countries, globalStats]);
 
   const loadStatsCountry = (data) => {
     setActiveCountry(data);
@@ -68,6 +80,10 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData }) => {
                 Stats in {activeCountryName === 'Global' ? 'The World' : activeCountryName}
               </div>
               <Cards stats={statsData} />
+              
+              { !_.isEmpty(mostAffectedCountries) && 
+                <Mac stats={mostAffectedCountries} />
+              }
             </>
           )
         }

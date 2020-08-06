@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return {
     countries: state.data.countries,
     statsData: state.data.statsData,
+    globalStats: state.data.globalStats,
   };
 };
 

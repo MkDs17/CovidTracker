@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA } from '../reducer/data';
+import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA, FETCH_GLOBAL_STATS_DATA, updateGLobalStatsData } from '../reducer/data';
 
 const dataMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -38,6 +38,24 @@ const dataMiddleware = (store) => (next) => (action) => {
       break;
     }
 
+    case FETCH_GLOBAL_STATS_DATA: {
+
+      axios({
+        method: 'get',
+        url: 'https://covid19.mathdro.id/api/confirmed',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((response) => {
+          console.log(response)
+          store.dispatch(updateGLobalStatsData(response.data));
+        })
+        .catch((error) => {
+          console.log('Houston ? We got trouble', error);
+        });
+
+      break;
+    }
+
     case FETCH_COUNTRY_DATA: {
 
       axios({
@@ -46,7 +64,6 @@ const dataMiddleware = (store) => (next) => (action) => {
         headers: { 'Content-Type': 'application/json' },
       })
         .then((response) => {
-          console.log('country dataaaa =>>>>', response)
           store.dispatch(updateStatsData(response.data));
         })
         .catch((error) => {
