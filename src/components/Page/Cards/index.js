@@ -5,7 +5,9 @@ import './cards.scss';
 
 import CardCustom from './CardCustom';
 
-const Cards = ({ stats, onLoadEvolutionStats }) => {
+import { getPourcentageEvolution } from '../../../utils/functions';
+
+const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries }) => {
   const [activeRange, setActiveRange] = useState('day');
   const [activeEvolution, setActiveEvolution] = useState({});
 
@@ -14,20 +16,33 @@ const Cards = ({ stats, onLoadEvolutionStats }) => {
       pourcentage: '+ 18%',
       range: activeRange,
     };
-
     setActiveEvolution(evolution);
+
+    getPourcentageEvolution(globalStats, dailyStats, countries)
     
-  }, [activeRange])
+  }, [activeRange, dailyStats])
 
   const rangeOptions = [
-    { key: 'day', value: 'day', text: 'a day' },
-    { key: 'week', value: 'week', text: 'a week' },
-    { key: 'month', value: 'month', text: 'a month' },
+    { key: 'day', value: 'day', text: 'day' },
+    { key: 'week', value: 'week', text: 'week' },
+    { key: 'month', value: 'month', text: 'month' },
   ]
 
   const onSelectChange = (data) => {
+    // Permet d'afficher le nom de l'option séléctionnée
     setActiveRange(data)
-    onLoadEvolutionStats(data)
+
+    switch(activeRange) {
+      case 'day':
+        onLoadEvolutionStats(86400)
+        break;
+      case 'week':
+        onLoadEvolutionStats(604800)
+        break;
+      case 'month':
+        onLoadEvolutionStats(2629743)
+        break;
+    }
   }
 
   return (

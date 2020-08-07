@@ -61,67 +61,46 @@ const dataMiddleware = (store) => (next) => (action) => {
         url: `https://covid19.mathdro.id/api/countries/${action.value}` ,
         headers: { 'Content-Type': 'application/json' },
       })
+      .then((response) => {
+        store.dispatch(updateStatsData(response.data));
+      })
+      .catch((error) => {
+        console.log('Houston ? We got trouble', error);
+      });
+      
+      break;
+    }
+    
+    case FETCH_EVOLUTION_STATS: {
+
+      const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
+
+      // Get timestamp for Now
+      const actualTimestamp = Math.floor(Date.now()/1000.0);
+
+      // Get timestamp to period searched
+      const searchedTimeStamp = actualTimestamp - action.value
+
+      // Get date format via timestamp
+      const getFinalDate = new Date(searchedTimeStamp * 1000).toLocaleString('en-EN', dateOptions);
+
+      // Format date to correspond to api url
+      const formatDate = getFinalDate.replace(/\//g, '-')
+
+      let urlEnding = formatDate
+
+      axios({
+        method: 'get',
+        url: `https://covid19.mathdro.id/api/daily/${urlEnding}`,
+        headers: { 'Content-Type': 'application/json' },
+      })
         .then((response) => {
-          store.dispatch(updateStatsData(response.data));
+          console.log('response', response);
+          store.dispatch(updateEvolutionStats(response.data));
         })
         .catch((error) => {
           console.log('Houston ? We got trouble', error);
         });
-
-      break;
-    }
-
-    case FETCH_EVOLUTION_STATS: {
-
-      const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
-      
-      /* const actualDate = new Date().toLocaleString('en-EN', dateOptions);
-      const formatDate = actualDate.replace(/\//g, '-')
-      console.log(formatDate) */
-
-      const actualTimestamp = Date.now();
-      console.log('actualTimestamp', actualTimestamp)
-      
-      var a = new Date(actualTimestamp * 1000);
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var year = a.getFullYear();
-      var month = months[a.getMonth()];
-      var date = a.getDate();
-
-      var time = date + ' ' + month + ' ' + year ;
-      
-      console.log('a', a)
-      console.log('date', date)
-      console.log('time', time);
-
-
-      let urlEnding = '';
-
-      switch (action.value) {
-        case 'day' :
-          console.log('day in middleware')
-          break;
-        case 'week' :
-          console.log('week in middleware')
-          break;
-        case 'month' :
-          console.log('month in middleware')
-          break;
-      }
-
-      //console.log('url', url)
-
-      /* axios({
-        method: 'get',
-        url: `https://covid19.mathdro.id/api/countries/${action.value}` ,
-        headers: { 'Content-Type': 'application/json' },
-      })
-        .then((response) => {
-          store.dispatch(updateStatsData(response.data));
-        })
-        .catch((error) => {
-          console.log('Houston ? We got trouble', error);
-        }); */
 
       break;
     }

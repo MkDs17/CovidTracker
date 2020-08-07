@@ -3,6 +3,7 @@ const initialState = {
   countries: null,
   statsData: null,
   globalStats: null,
+  dailyStats: null,
 };
 
 // --- action types
@@ -40,6 +41,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         globalStats: action.value,
+      };
+
+    case UPDATE_EVOLUTION_STATS:
+      return {
+        ...state,
+        dailyStats: action.value,
       };
 
     default: return state;

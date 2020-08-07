@@ -7,7 +7,8 @@ import { fetchEvolutionStats } from '../../../store/reducer/data';
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
   return {
-    //countries: state.data.countries,
+    dailyStats: state.data.dailyStats,
+    countries: state.data.countries,
   };
 };
 

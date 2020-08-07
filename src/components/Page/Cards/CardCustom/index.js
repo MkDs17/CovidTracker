@@ -7,7 +7,7 @@ import './card-custom.scss';
 const CardCustom = ({ title, data, lastUpdate, evolution, content, color }) => {
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-
+  
   return (
     <Card color={color}>
       <Card.Content>

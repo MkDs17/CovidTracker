@@ -9,7 +9,7 @@ import Mac from './Mac';
 
 import { getThreeMostAffected } from '../../utils/functions';
 
-const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, globalStats }) => {
+const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, globalStats, onLoadEvolutionStats }) => {
   const [countriesOptions, setCountriesOptions] = useState([]);
   const [activeCountry, setActiveCountry] = useState('GLO');
   const [activeCountryName, setActiveCountryName] = useState('Global');
@@ -39,6 +39,8 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
       let mac =(getThreeMostAffected(globalStats, countriesOptions));
       setmostAffectedCountries(mac);
     }
+
+    onLoadEvolutionStats(86400)
 
   }, [countries, globalStats]);
 
@@ -79,7 +81,7 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
               <div className="page-header">
                 Stats in {activeCountryName === 'Global' ? 'The World' : activeCountryName}
               </div>
-              <Cards stats={statsData} />
+              <Cards stats={statsData} globalStats={globalStats} />
               
               { !_.isEmpty(mostAffectedCountries) && 
                 <Mac stats={mostAffectedCountries} />

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Page from '../../components/Page';
 
-import { fetchCountryData, fetchStatsData } from '../../store/reducer/data';
+import { fetchCountryData, fetchStatsData, fetchEvolutionStats } from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
@@ -20,6 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchStatsData: () => {
     const action = fetchStatsData();
+    dispatch(action);
+  },
+  onLoadEvolutionStats: (value) => {
+    const action = fetchEvolutionStats(value);
     dispatch(action);
   },
 });
