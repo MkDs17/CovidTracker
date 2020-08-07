@@ -5,14 +5,14 @@ export const getThreeMostAffected = (stats, countriesArray) => {
   let threeMostAffected = []
 
   let mostConfirmed;
-  let mostDeaths;
   let mostRecovered;
+  let mostDeaths;
 
   let reuniteDataByCountry = [];
   
   let totalSumConfirmedByCountry = [];
-  let totalSumDeathsByCountry = [];
   let totalSumRecoveredByCountry = [];
+  let totalSumDeathsByCountry = [];
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -30,24 +30,22 @@ export const getThreeMostAffected = (stats, countriesArray) => {
   if (reuniteDataByCountry !== undefined) {
     reuniteDataByCountry.map(array => {
       let countConfirmed = []
-      let countDeaths = []
       let countRecovered = []
+      let countDeaths = []
 
       array.map(country => {
         countConfirmed.push(country.confirmed)
-        countDeaths.push(country.deaths)
         countRecovered.push(country.recovered)
+        countDeaths.push(country.deaths)
       })
       
       const sumConfirmed = countConfirmed.reduce(reducer)
-      const sumDeaths = countDeaths.reduce(reducer)
       const sumRecovered = countRecovered.reduce(reducer)
+      const sumDeaths = countDeaths.reduce(reducer)
 
       // Verifier que la propriete flag contient bien une valeur, le cas écheant on passe la valeur en minuscule 
       const flag  = array[0].iso2
       if (flag !== undefined) {
-        console.log('typeof(flag)', typeof(flag))
-        console.log('flag', flag)
         const flagToLowerCase = flag.toLowerCase()
         
         totalSumConfirmedByCountry.push({
@@ -55,14 +53,14 @@ export const getThreeMostAffected = (stats, countriesArray) => {
           total: sumConfirmed,
           flag: flagToLowerCase,
         })
-        totalSumDeathsByCountry.push({
-          name: array[0].countryRegion,
-          total: sumDeaths,
-          flag: flagToLowerCase,
-        })
         totalSumRecoveredByCountry.push({
           name: array[0].countryRegion,
           total: sumRecovered,
+          flag: flagToLowerCase,
+        })
+        totalSumDeathsByCountry.push({
+          name: array[0].countryRegion,
+          total: sumDeaths,
           flag: flagToLowerCase,
         })
       }
@@ -121,8 +119,61 @@ export const getThreeMostAffected = (stats, countriesArray) => {
 
   /********* CONFIRMED PART *********/
 
-
   
+
+  /********* RECOVERED PART *********/
+  
+  let firstRecovered = [];
+  let secondRecovered = [];
+  let thirdRecovered = [];
+
+  totalSumRecoveredByCountry.map(country => {
+    // If firstRecovered is Empty then put a country in it
+    if(_.isEmpty(firstRecovered)) {
+      firstRecovered = country
+    } 
+    
+    // Pick the 1st worst State and put object on firstRecovered variable
+    else if( country.total > firstRecovered.total) {
+      firstRecovered = country
+    }
+  })
+
+  totalSumRecoveredByCountry.map(country => {
+    // If secondRecovere is Empty then put a country in it
+    if(_.isEmpty(secondRecovered)) {
+      secondRecovered = country
+    } 
+
+    // Pick the 2nd worst State and put object on secondRecovere variable
+    else if( country.total < firstRecovered.total && country.total > secondRecovered.total ) {
+      secondRecovered = country
+    }
+  })
+
+  totalSumRecoveredByCountry.map(country => {
+    // If thirdRecovere is Empty then put a country in it
+    if(_.isEmpty(thirdRecovered)) {
+      thirdRecovered = country
+    } 
+
+    // Pick the 3nd worst State and put object on secondRecovere variable
+    else if( country.total < secondRecovered.total && country.total > thirdRecovered.total ) {
+      thirdRecovered = country
+    }
+  })
+
+  mostRecovered = {
+    first: firstRecovered,
+    second: secondRecovered,
+    third: thirdRecovered,
+  }
+  threeMostAffected.push(mostRecovered)
+
+  /********* RECOVERED PART *********/
+  
+
+
   /********* DEATHS PART *********/
 
   let firstDeaths = [];
@@ -175,58 +226,8 @@ export const getThreeMostAffected = (stats, countriesArray) => {
   /********* DEATHS PART *********/
 
 
-
-  /********* RECOVERED PART *********/
-  
-  let firstRecovered = [];
-  let secondRecovered = [];
-  let thirdRecovered = [];
-
-  totalSumRecoveredByCountry.map(country => {
-    // If firstRecovered is Empty then put a country in it
-    if(_.isEmpty(firstRecovered)) {
-      firstRecovered = country
-    } 
-    
-    // Pick the 1st worst State and put object on firstRecovered variable
-    else if( country.total > firstRecovered.total) {
-      firstRecovered = country
-    }
-  })
-
-  totalSumRecoveredByCountry.map(country => {
-    // If secondRecovere is Empty then put a country in it
-    if(_.isEmpty(secondRecovered)) {
-      secondRecovered = country
-    } 
-
-    // Pick the 2nd worst State and put object on secondRecovere variable
-    else if( country.total < firstRecovered.total && country.total > secondRecovered.total ) {
-      secondRecovered = country
-    }
-  })
-
-  totalSumRecoveredByCountry.map(country => {
-    // If thirdRecovere is Empty then put a country in it
-    if(_.isEmpty(thirdRecovered)) {
-      thirdRecovered = country
-    } 
-
-    // Pick the 3nd worst State and put object on secondRecovere variable
-    else if( country.total < secondRecovered.total && country.total > thirdRecovered.total ) {
-      thirdRecovered = country
-    }
-  })
-
-  mostRecovered = {
-    first: firstRecovered,
-    second: secondRecovered,
-    third: thirdRecovered,
-  }
-  threeMostAffected.push(mostRecovered)
-
-  /********* RECOVERED PART *********/
-
   return threeMostAffected;
   
 };
+
+//export const getPourcentageEvolution = (date, )

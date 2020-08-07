@@ -1,18 +1,1 @@
 @import 'src/styles/vars';
-
-#mac-card {
-  & .mac-card {
-    display: flex;
-    flex-direction: column;
-
-    &-title {
-      font-size: 1.2em;
-      font-weight: 600;
-      margin-bottom: .5em;
-    }
-    &-content {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-}

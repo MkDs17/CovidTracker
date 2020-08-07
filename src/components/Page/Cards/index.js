@@ -12,7 +12,7 @@ const Cards = ({ stats }) => {
       <div className="cards">
         <Card.Group>
           <CardCustom 
-            title={'Infected'} 
+            title={'Confirmed'} 
             data={stats.confirmed} 
             lastUpdate={stats.lastUpdate} 
             content={'Number of active cases of COVID-19'}

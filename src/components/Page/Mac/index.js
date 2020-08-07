@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from 'semantic-ui-react';
 
 import './mac.scss';
 
@@ -13,13 +14,13 @@ function App({ stats }) {
       <div className="mac">
         <div className="mac-title">Most Affected Countries</div>
           <div className="mac-content">
-            {
-              stats.map((object, i) => {
+            <Card.Group>
+              {stats.map((object, i) => {
                 return (
                   <MacCard stat={object} key={i} numb={i} />
                 )
-              })
-            }
+              })}
+            </Card.Group>
           </div>
       </div>
     </div>
