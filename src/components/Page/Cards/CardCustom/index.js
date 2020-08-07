@@ -4,7 +4,7 @@ import CountUp from 'react-countup';
 
 import './card-custom.scss';
 
-const CardCustom = ({ title, data, lastUpdate, content, color }) => {
+const CardCustom = ({ title, data, lastUpdate, evolution, content, color }) => {
 
   const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -21,6 +21,9 @@ const CardCustom = ({ title, data, lastUpdate, content, color }) => {
           separator=" "
         />
         </Card.Description>
+      </Card.Content>
+      <Card.Content>
+        Evolution in one {evolution.range} : {evolution.pourcentage}
       </Card.Content>
       <Card.Content extra>
         {content}

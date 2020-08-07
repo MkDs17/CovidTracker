@@ -5,8 +5,6 @@ import CountUp from 'react-countup';
 import './mac-card.scss';
 
 function MacCard({ stat, numb }) {
-  console.log('object', stat)
-  console.log('numb', numb)
 
   const color = (numb) => {
     switch(numb) {

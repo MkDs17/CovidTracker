@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import './page.scss';
 
-import Cards from './Cards';
+import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
 
 import { getThreeMostAffected } from '../../utils/functions';
