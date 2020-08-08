@@ -8,22 +8,16 @@ import CardCustom from './CardCustom';
 import { getPourcentageEvolution } from '../../../utils/functions';
 
 const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries }) => {
-  const [activeRange, setActiveRange] = useState('day');
-  const [activeEvolution, setActiveEvolution] = useState({});
+  const [activeRange, setActiveRange] = useState('month');
+  const [activeEvolution, setActiveEvolution] = useState();
 
   useEffect(() => {
-    const evolution = {
-      pourcentage: '+ 18%',
-      range: activeRange,
-    };
-    setActiveEvolution(evolution);
-
-    getPourcentageEvolution(globalStats, dailyStats, countries)
+    setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries))
     
   }, [activeRange, dailyStats])
 
   const rangeOptions = [
-    { key: 'day', value: 'day', text: 'day' },
+    /* { key: 'day', value: 'day', text: 'day' }, */
     { key: 'week', value: 'week', text: 'week' },
     { key: 'month', value: 'month', text: 'month' },
   ]
@@ -32,10 +26,10 @@ const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries
     // Permet d'afficher le nom de l'option séléctionnée
     setActiveRange(data)
 
-    switch(activeRange) {
-      case 'day':
+    switch(data) {
+      /* case 'day':
         onLoadEvolutionStats(86400)
-        break;
+        break; */
       case 'week':
         onLoadEvolutionStats(604800)
         break;
@@ -59,12 +53,14 @@ const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries
           />
         </div>
         
+        { activeEvolution !== undefined && 
         <Card.Group>
           <CardCustom 
             title={'Confirmed'} 
             data={stats.confirmed} 
             lastUpdate={stats.lastUpdate}
-            evolution={activeEvolution}
+            evolution={activeEvolution.confirmed}
+            range={activeRange}
             content={'Number of active cases of COVID-19'}
             color={'orange'}
           />
@@ -72,7 +68,8 @@ const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries
             title={'Recovered'} 
             data={stats.recovered} 
             lastUpdate={stats.lastUpdate}
-            evolution={activeEvolution}
+            evolution={activeEvolution.recovered}
+            range={activeRange}
             content={'Number of recoveries from COVID-19'}
             color={'green'}
           />
@@ -80,11 +77,13 @@ const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries
             title={'Deaths'} 
             data={stats.deaths} 
             lastUpdate={stats.lastUpdate}
-            evolution={activeEvolution}
+            evolution={activeEvolution.deaths}
+            range={activeRange}
             content={'Number of deaths caused by COVID-19'}
             color={'red'}
           />
         </Card.Group>
+        }
       </div>
     </div>
   );

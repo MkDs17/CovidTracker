@@ -40,7 +40,7 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
       setmostAffectedCountries(mac);
     }
 
-    onLoadEvolutionStats(86400)
+    onLoadEvolutionStats(2629743)
 
   }, [countries, globalStats]);
 

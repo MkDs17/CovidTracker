@@ -8,6 +8,23 @@
       & .content {
         font-size: .9em;
 
+        & .evolution {
+          font-size: 1.1em;
+          font-weight: 600;
+          margin-left: .3em;
+        }
+
+        & .evolution-positive {
+          color: green;
+        }
+        & .evolution-positive::before {
+          content: '\002B';
+        }
+
+        & .evolution-negative {
+          color: red;
+        }
+
         & .header {
           font-family: Poppins;
           font-size: 1.5em;
@@ -23,6 +40,7 @@
       & .extra {
         font-size: .9em;
       }
+
     }
   }
 }

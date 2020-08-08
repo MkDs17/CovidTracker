@@ -95,7 +95,6 @@ const dataMiddleware = (store) => (next) => (action) => {
         headers: { 'Content-Type': 'application/json' },
       })
         .then((response) => {
-          console.log('response', response);
           store.dispatch(updateEvolutionStats(response.data));
         })
         .catch((error) => {

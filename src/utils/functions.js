@@ -231,13 +231,14 @@ export const getThreeMostAffected = (stats, countriesArray) => {
 };
 
 export const getPourcentageEvolution = (stats, dailyStats, countriesArray) => {
-  /* console.log('on m\'appele')
-  console.log('stats', stats) */
+  //console.log('stats', stats)
   //console.log('dailyStats', dailyStats)
   //console.log('countriesArray', countriesArray)
 
   let reuniteTotalDataByCountry = []
   let reuniteDailyDataByCountry = []
+  let totalEvolution = {}
+  let evolution = {}
 
   let arrayWithActualAndPreviousDataByCountry = []
 
@@ -263,14 +264,8 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray) => {
     })
   }
 
-  /* if (reuniteTotalDataByCountry !== null && reuniteDailyDataByCountry !== null) {
-    let actual
-    let previous
-
-    countriesArray.map(option => {
-      sameCountry1 = reuniteDailyDataByCountry.filter(country => country.iso3 === option.iso3)
-    }
-  } */
+  //console.log('reuniteDailyDataByCountry', reuniteDailyDataByCountry)
+  //console.log('reuniteTotalDataByCountry', reuniteTotalDataByCountry)
 
   if (reuniteTotalDataByCountry !== null && reuniteDailyDataByCountry !== null) {
     let totalCountConfirmed = []
@@ -280,6 +275,7 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray) => {
     let dailyCountRecovered = []
     let dailyCountDeaths = []
 
+    // Handle the TOTAL Data array by country
     reuniteTotalDataByCountry.map(array => {
       array.map(country => {
         totalCountConfirmed.push(country.confirmed)
@@ -287,50 +283,67 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray) => {
         totalCountDeaths.push(country.deaths)
       })
     })
+
+    // Handle the DAILY Data array by country
     reuniteDailyDataByCountry.map(array => {
       array.map(country => {
-        dailyCountConfirmed.push(country.confirmed)
-        dailyCountRecovered.push(country.recovered)
-        dailyCountDeaths.push(country.deaths)
+        dailyCountConfirmed.push(Number(country.confirmed))
+        dailyCountRecovered.push(Number(country.recovered))
+        dailyCountDeaths.push(Number(country.deaths))
       })
     })
 
-    console.log('totalCountConfirmed', totalCountConfirmed);
-
-    if ( totalCountConfirmed !== null && totalCountRecovered !== null && totalCountDeaths !== null && dailyCountConfirmed !== null && dailyCountRecovered !== null && dailyCountDeaths !== null) {
-
-      /* console.log('totalCountConfirmed', totalCountConfirmed)
-
+    if ( !_.isEmpty(totalCountConfirmed) && !_.isEmpty(totalCountRecovered) && !_.isEmpty(totalCountDeaths) && !_.isEmpty(dailyCountConfirmed) && !_.isEmpty(dailyCountRecovered) && !_.isEmpty(dailyCountDeaths)) {
+      
       const sumTotalConfirmed = totalCountConfirmed.reduce(reducer)
-
-      console.log(sumTotalConfirmed) */
-
-      /* const sumTotalConfirmed = totalCountConfirmed.reduce(reducer)
       const sumTotalRecovered = totalCountRecovered.reduce(reducer)
       const sumTotalDeaths = totalCountDeaths.reduce(reducer)
       const sumDailyConfirmed = dailyCountConfirmed.reduce(reducer)
       const sumDailyRecovered = dailyCountRecovered.reduce(reducer)
       const sumDailyDeaths = dailyCountDeaths.reduce(reducer)
-        
-      arrayWithActualAndPreviousDataByCountry.push({
-        name: array[0].countryRegion,
-        total: sumTotalConfirmed,
-        daily: sumDailyConfirmed,
+
+      if(sumTotalConfirmed !== 0 && sumTotalRecovered !== 0 && sumTotalDeaths !== 0 && sumDailyConfirmed !== 0 && sumDailyRecovered !== 0 && sumDailyDeaths !== 0 ) {
+        evolution = {
+          confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
+          recovered : Math.round(((sumTotalRecovered - sumDailyRecovered) / sumDailyRecovered) * 100),
+          deaths : Math.round(((sumTotalDeaths - sumDailyDeaths) / sumDailyDeaths) * 100),
+        }
+      }
+
+      
+      countriesArray.map((country, i) => {
+        arrayWithActualAndPreviousDataByCountry.push(
+          i = {
+            name: country.name,
+            daily: {
+              confirmed: sumDailyConfirmed,
+              recovered: sumDailyRecovered,
+              deaths: sumDailyDeaths,
+
+            },
+            total: {
+              confirmed: sumTotalConfirmed,
+              recovered: sumTotalRecovered,
+              deaths: sumTotalDeaths,
+
+            },
+            evolution,
+          }
+        )
       })
-      arrayWithActualAndPreviousDataByCountry.push({
-        name: array[0].countryRegion,
-        total: sumTotalRecovered,
-        daily: sumDailyRecovered,
-      })
-      arrayWithActualAndPreviousDataByCountry.push({
-        name: array[0].countryRegion,
-        total: sumTotalDeaths,
-        daily: sumDailyDeaths,
-      }) */
+
+      totalEvolution = {
+        confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
+        recovered : Math.round(((sumTotalRecovered - sumDailyRecovered) / sumDailyRecovered) * 100),
+        deaths : Math.round(((sumTotalDeaths - sumDailyDeaths) / sumDailyDeaths) * 100),
+      }
     }
   }
   
-  console.log('reuniteTotalDataByCountry', reuniteTotalDataByCountry);
-  console.log('reuniteDailyDataByCountry', reuniteDailyDataByCountry);
+  if (!_.isEmpty(totalEvolution)) {
+    //console.log('totalEvolution inside func', totalEvolution)
+    return totalEvolution
+  }
+  //console.log('arrayWithActualAndPreviousDataByCountry', arrayWithActualAndPreviousDataByCountry);
 
 };
