@@ -15,14 +15,14 @@
         }
 
         & .evolution-positive {
-          color: green;
+          color: #48bb78;
         }
         & .evolution-positive::before {
           content: '\002B';
         }
 
         & .evolution-negative {
-          color: red;
+          color: #f56565;
         }
 
         & .header {
