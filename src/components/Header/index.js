@@ -53,7 +53,7 @@ const Header = ({ countries, activeCountry, countriesOptions, onSetCountriesOpti
         <Menu.Item>
           Covid Tracker
         </Menu.Item>
-        <Menu.Item className="menu-dropdown-item">
+        <Menu.Item className="menu-dropdown-item" position="right">
           <Select 
             placeholder='Select a country' 
             options={countriesOptions} 
