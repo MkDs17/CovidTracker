@@ -7,7 +7,7 @@ import './page.scss';
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
 
-import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
+import { getThreeMostAffected, getPourcentageEvolution, getNameOfActiveCountry } from '../../utils/functions';
 
 const Page = ({ countries, activeCountry, statsData, globalStats, dailyStats, fetchStatsData, onSetActiveCountry, onLoadStatsCountry, onLoadEvolutionStats }) => {
   // Set countries options for the Select a Country Component
@@ -57,19 +57,16 @@ const Page = ({ countries, activeCountry, statsData, globalStats, dailyStats, fe
 
   const loadStatsCountry = (data) => {
     // Set the redux state
-    onSetActiveCountry(data)
-    getNameOfActiveCountry(countriesOptions, data);
+    onSetActiveCountry({
+      iso: data,
+      name: getNameOfActiveCountry(countriesOptions, data),
+    })
 
     if (data === 'GLO') {
       fetchStatsData();
     } else {
       onLoadStatsCountry(data);
     }
-  }
-
-  const getNameOfActiveCountry = (countries, activeCountry) => {
-    let country = countries.find(country => country.value === activeCountry);
-    setActiveCountryName(country.text);
   }
   
   return (
@@ -80,7 +77,7 @@ const Page = ({ countries, activeCountry, statsData, globalStats, dailyStats, fe
           <Select 
             placeholder='Select a country' 
             options={countriesOptions} 
-            defaultValue={activeCountry}
+            defaultValue={activeCountry.iso}
             onChange={(e, data) => {
               loadStatsCountry(data.value)
             }}
@@ -91,7 +88,7 @@ const Page = ({ countries, activeCountry, statsData, globalStats, dailyStats, fe
           (
             <>
               <div className="page-header">
-                Stats in {activeCountryName === 'Global' ? 'The World' : activeCountryName}
+                Stats in {activeCountry.name === 'Global' ? 'The World' : activeCountry.name}
               </div>
               <Cards 
                 stats={statsData} 

@@ -1,5 +1,10 @@
 import _ from 'lodash';
 
+export const getNameOfActiveCountry = (countries, activeCountry) => {
+  let country = countries.find(country => country.value === activeCountry);
+  return country.text
+}
+
 export const getThreeMostAffected = (stats, countriesArray) => {
 
   let threeMostAffected = []
@@ -231,42 +236,62 @@ export const getThreeMostAffected = (stats, countriesArray) => {
 };
 
 export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activeCountry) => {
-  console.log('activeCountry', activeCountry)
-  //console.log('stats', stats)
-  //console.log('dailyStats', dailyStats)
-  //console.log('countriesArray', countriesArray)
+  let sameCountry = []
+  let dailySameCountry = []
 
   let reuniteTotalDataByCountry = []
   let reuniteDailyDataByCountry = []
+
   let totalEvolution = {}
   let evolution = {}
-
-  let arrayWithActualAndPreviousDataByCountry = []
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   
   if (countriesArray !== null && stats !== null ) {
+    // Allows to gather all the data concerning each country in an array
 
-    countriesArray.map(option => {
-      // order array with all countryRegion in same array
-      let sameCountry = stats.filter(country => country.iso3 === option.iso3)
-      // verfiy some array aren't empty
+    if (activeCountry.name === 'Global') {
+      countriesArray.map(option => {
+        // order array with all countryRegion in same array for Total Datas
+        sameCountry = stats.filter(country => country.countryRegion === option.name)
+        dailySameCountry = dailyStats.filter(country => country.countryRegion === option.name)
+        
+        // verify some array aren't empty
+        let verifyEmptyness = !_.isEmpty(sameCountry)
+        // if array aren't empty, then push em into reunitedDataCountry array
+        if (verifyEmptyness === true) {
+          reuniteTotalDataByCountry.push(sameCountry)
+        }
+  
+        let dailyVerifyEmptyness = !_.isEmpty(dailySameCountry)
+        if (dailyVerifyEmptyness === true) {
+          reuniteDailyDataByCountry.push(dailySameCountry)
+        }
+
+      })
+    }
+
+    if (activeCountry.name !== 'Global') {
+      // order array with all countryRegion in same array for Daily Datas
+      sameCountry = stats.filter(country => country.countryRegion === activeCountry.name)
+      dailySameCountry = dailyStats.filter(country => country.countryRegion === activeCountry.name)
+
+      // verify some array aren't empty
       let verifyEmptyness = !_.isEmpty(sameCountry)
-      // if array aren't empty, then push em into reunitedDataCountry arrat
+      // if array aren't empty, then push em into reunitedDataCountry array
       if (verifyEmptyness === true) {
         reuniteTotalDataByCountry.push(sameCountry)
       }
 
-      let dailySameCountry = dailyStats.filter(country => country.countryRegion === option.name)
       let dailyVerifyEmptyness = !_.isEmpty(dailySameCountry)
       if (dailyVerifyEmptyness === true) {
         reuniteDailyDataByCountry.push(dailySameCountry)
       }
-    })
+    }
   }
 
-  //console.log('reuniteDailyDataByCountry', reuniteDailyDataByCountry)
   //console.log('reuniteTotalDataByCountry', reuniteTotalDataByCountry)
+  //console.log('reuniteDailyDataByCountry', reuniteDailyDataByCountry)
 
   if (reuniteTotalDataByCountry !== null && reuniteDailyDataByCountry !== null) {
     let totalCountConfirmed = []
@@ -302,7 +327,7 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
       const sumDailyConfirmed = dailyCountConfirmed.reduce(reducer)
       const sumDailyRecovered = dailyCountRecovered.reduce(reducer)
       const sumDailyDeaths = dailyCountDeaths.reduce(reducer)
-
+      
       if(sumTotalConfirmed !== 0 && sumTotalRecovered !== 0 && sumTotalDeaths !== 0 && sumDailyConfirmed !== 0 && sumDailyRecovered !== 0 && sumDailyDeaths !== 0 ) {
         evolution = {
           confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
@@ -311,28 +336,6 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
         }
       }
 
-      
-      countriesArray.map((country, i) => {
-        arrayWithActualAndPreviousDataByCountry.push(
-          i = {
-            name: country.name,
-            daily: {
-              confirmed: sumDailyConfirmed,
-              recovered: sumDailyRecovered,
-              deaths: sumDailyDeaths,
-
-            },
-            total: {
-              confirmed: sumTotalConfirmed,
-              recovered: sumTotalRecovered,
-              deaths: sumTotalDeaths,
-
-            },
-            evolution,
-          }
-        )
-      })
-
       totalEvolution = {
         confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
         recovered : Math.round(((sumTotalRecovered - sumDailyRecovered) / sumDailyRecovered) * 100),
@@ -340,11 +343,10 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
       }
     }
   }
+
   
   if (!_.isEmpty(totalEvolution)) {
-    //console.log('totalEvolution inside func', totalEvolution)
     return totalEvolution
   }
-  //console.log('arrayWithActualAndPreviousDataByCountry', arrayWithActualAndPreviousDataByCountry);
 
 };

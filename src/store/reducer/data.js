@@ -4,8 +4,11 @@ const initialState = {
   statsData: null,
   globalStats: null,
   dailyStats: null,
-  activeCountry: 'GLO',
-};
+  activeCountry: {
+    iso: 'GLO',
+    name: 'Global',
+  }
+} ;
 
 // --- action types
 export const FETCH_COUNTRIES = 'FETCH_COUNTRIES';
@@ -23,6 +26,7 @@ export const FETCH_EVOLUTION_STATS = 'FETCH_EVOLUTION_STATS';
 const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
 
 const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY'
+const SET_ACTIVE_COUNTRY_NAME = 'SET_ACTIVE_COUNTRY_NAME'
 
 
 // --- Reducer
@@ -55,9 +59,12 @@ const reducer = (state = initialState, action = {}) => {
     case SET_ACTIVE_COUNTRY:
       return {
         ...state,
-        activeCountry: action.value,
+        activeCountry: {
+          iso: action.value.iso,
+          name: action.value.name,
+        },
       };
-
+    
     default: return state;
   }
 };
