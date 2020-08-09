@@ -12,7 +12,9 @@ function App({ stats }) {
   return (
     <div id="mac">
       <div className="mac">
-        <div className="mac-title">Most Affected Countries</div>
+        <div className="mac-title">
+          <h2><span>Most Affected Countries</span> </h2>
+        </div>
           <div className="mac-content">
             <Card.Group>
               {stats.map((object, i) => {

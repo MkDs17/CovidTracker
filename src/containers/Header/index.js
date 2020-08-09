@@ -1,17 +1,14 @@
 import { connect } from 'react-redux';
 
-import Page from '../../components/Page';
+import Header from '../../components/Header';
 
-import { fetchCountryData, fetchStatsData, fetchEvolutionStats, setActiveCountry } from '../../store/reducer/data';
+import { fetchCountryData, fetchStatsData, fetchEvolutionStats, setActiveCountry, setCountriesOptions } from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
   return {
     countries: state.data.countries,
     activeCountry: state.data.activeCountry,
-    statsData: state.data.statsData,
-    globalStats: state.data.globalStats,
-    dailyStats: state.data.dailyStats,
     countriesOptions: state.data.countriesOptions,
   };
 };
@@ -25,19 +22,19 @@ const mapDispatchToProps = (dispatch) => ({
     const action = fetchStatsData();
     dispatch(action);
   },
-  onLoadEvolutionStats: (value) => {
-    const action = fetchEvolutionStats(value);
-    dispatch(action);
-  },
   onSetActiveCountry: (value) => {
     const action = setActiveCountry(value);
     dispatch(action);
   },
+  onSetCountriesOptions: (value) => {
+    const action = setCountriesOptions(value);
+    dispatch(action);
+  }
 });
 
-const PageContainer = connect(
+const HeaderContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Page);
+)(Header);
 
-export default PageContainer;
+export default HeaderContainer;
