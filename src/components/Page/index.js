@@ -9,7 +9,7 @@ import Mac from './Mac';
 
 import { getThreeMostAffected } from '../../utils/functions';
 
-const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, globalStats, onLoadEvolutionStats }) => {
+const Page = ({ countries, statsData, globalStats, dailyStats, fetchStatsData, onLoadStatsCountry, onLoadEvolutionStats }) => {
   const [countriesOptions, setCountriesOptions] = useState([]);
   const [activeCountry, setActiveCountry] = useState('GLO');
   const [activeCountryName, setActiveCountryName] = useState('Global');
