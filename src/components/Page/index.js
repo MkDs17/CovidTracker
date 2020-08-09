@@ -7,13 +7,19 @@ import './page.scss';
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
 
-import { getThreeMostAffected } from '../../utils/functions';
+import { getThreeMostAffected, getPourcentageEvolution, getNameOfActiveCountry } from '../../utils/functions';
 
-const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, globalStats, onLoadEvolutionStats }) => {
+const Page = ({ countries, activeCountry, statsData, globalStats, dailyStats, fetchStatsData, onSetActiveCountry, onLoadStatsCountry, onLoadEvolutionStats }) => {
+  // Set countries options for the Select a Country Component
   const [countriesOptions, setCountriesOptions] = useState([]);
-  const [activeCountry, setActiveCountry] = useState('GLO');
+  // Set Active country to show data only for this country
   const [activeCountryName, setActiveCountryName] = useState('Global');
+  // Set Most Affected Countries stats 
   const [mostAffectedCountries, setmostAffectedCountries] = useState([]);
+  // Set Active Range for Select a Range Componenet
+  const [activeRange, setActiveRange] = useState('month');
+  // Set Evolution  of Covid 
+  const [activeEvolution, setActiveEvolution] = useState();
 
   useEffect(() => {
     let countriesArray = [{
@@ -44,20 +50,23 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
 
   }, [countries, globalStats]);
 
+  useEffect(() => {
+    setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry))
+    
+  }, [activeRange, dailyStats, activeCountry])
+
   const loadStatsCountry = (data) => {
-    setActiveCountry(data);
-    getNameOfActiveCountry(countriesOptions, data);
+    // Set the redux state
+    onSetActiveCountry({
+      iso: data,
+      name: getNameOfActiveCountry(countriesOptions, data),
+    })
 
     if (data === 'GLO') {
       fetchStatsData();
     } else {
       onLoadStatsCountry(data);
     }
-  }
-
-  const getNameOfActiveCountry = (countries, activeCountry) => {
-    let country = countries.find(country => country.value === activeCountry);
-    setActiveCountryName(country.text);
   }
   
   return (
@@ -68,7 +77,7 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
           <Select 
             placeholder='Select a country' 
             options={countriesOptions} 
-            defaultValue={activeCountry}
+            defaultValue={activeCountry.iso}
             onChange={(e, data) => {
               loadStatsCountry(data.value)
             }}
@@ -79,9 +88,16 @@ const Page = ({ countries, statsData, onLoadStatsCountry, fetchStatsData, global
           (
             <>
               <div className="page-header">
-                Stats in {activeCountryName === 'Global' ? 'The World' : activeCountryName}
+                Stats in {activeCountry.name === 'Global' ? 'The World' : activeCountry.name}
               </div>
-              <Cards stats={statsData} globalStats={globalStats} />
+              <Cards 
+                stats={statsData} 
+                globalStats={globalStats} 
+                activeRange={activeRange}
+                setActiveRange={setActiveRange}
+                activeEvolution={activeEvolution}
+                setActiveEvolution={setActiveEvolution}
+              />
               
               { !_.isEmpty(mostAffectedCountries) && 
                 <Mac stats={mostAffectedCountries} />

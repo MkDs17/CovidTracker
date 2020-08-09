@@ -4,6 +4,17 @@
   & .cards {
     margin-bottom: 1em;
 
+    &-select {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1em;
+      align-items: center;
+
+      & .dropdown {
+        margin-left: .5em;
+      }
+    }
+
     & .card {
       & .content {
         font-size: .9em;
@@ -20,10 +31,16 @@
         & .evolution-positive::before {
           content: '\002B';
         }
-
         & .evolution-negative {
           color: #f56565;
         }
+        & .evolution-negative, & .evolution-positive {
+          & .countup {
+            margin-right: .1em;
+            font-size: 1.2em;
+          }
+        }
+
 
         & .header {
           font-family: Poppins;

@@ -32,7 +32,16 @@ const CardCustom = ({ title, data, lastUpdate, evolution, range, content, color 
         </Card.Description>
       </Card.Content>
       <Card.Content>
-        Evolution in a {range} : <span className={evolutionStyle}> {`${evolution} %`} </span>
+        Evolution in a {range} : 
+        <span className={evolutionStyle}>
+          <CountUp
+            className="countup"
+            end={evolution}
+            duration={1}
+            separator=" "
+          />
+          %
+        </span>
       </Card.Content>
       <Card.Content extra>
         {content}
