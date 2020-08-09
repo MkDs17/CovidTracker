@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './app.scss';
 
-import Header from '../Header';
+import Header from '../../containers/Header';
 import Page from '../../containers/Page';
 
 function App({ fetchCountries, fetchStatsData, fetchGlobalStatsData }) {

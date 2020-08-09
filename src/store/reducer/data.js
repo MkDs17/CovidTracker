@@ -7,7 +7,8 @@ const initialState = {
   activeCountry: {
     iso: 'GLO',
     name: 'Global',
-  }
+  },
+  countriesOptions: [],
 } ;
 
 // --- action types
@@ -27,6 +28,8 @@ const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
 
 const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY'
 const SET_ACTIVE_COUNTRY_NAME = 'SET_ACTIVE_COUNTRY_NAME'
+
+const SET_COUNTRIES_OPTIONS = 'SET_COUNTRIES_OPTIONS'
 
 
 // --- Reducer
@@ -63,6 +66,12 @@ const reducer = (state = initialState, action = {}) => {
           iso: action.value.iso,
           name: action.value.name,
         },
+      };
+
+    case SET_COUNTRIES_OPTIONS:
+      return {
+        ...state,
+        countriesOptions:  action.value,
       };
     
     default: return state;
@@ -111,6 +120,11 @@ export const updateEvolutionStats = ( value ) => ({
 
 export const setActiveCountry = ( value ) => ({
   type: SET_ACTIVE_COUNTRY,
+  value,
+})
+
+export const setCountriesOptions = ( value ) => ({
+  type: SET_COUNTRIES_OPTIONS,
   value,
 })
 

@@ -3,10 +3,12 @@
 #page {
   & .page {
     height: 80vh;
+    width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Poppins';
+    margin: auto;
 
     &-select {
       margin: 2em 0;
@@ -22,5 +24,8 @@
 
 @media (max-width: 768px) {
   #page {
+    & .page {
+      width: inherit;
+    }
   }  
 }
