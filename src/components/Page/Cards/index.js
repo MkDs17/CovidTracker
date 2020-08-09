@@ -5,16 +5,7 @@ import './cards.scss';
 
 import CardCustom from './CardCustom';
 
-import { getPourcentageEvolution } from '../../../utils/functions';
-
-const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries }) => {
-  const [activeRange, setActiveRange] = useState('month');
-  const [activeEvolution, setActiveEvolution] = useState();
-
-  useEffect(() => {
-    setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries))
-    
-  }, [activeRange, dailyStats])
+const Cards = ({ stats, onLoadEvolutionStats, activeRange, setActiveRange, activeEvolution }) => {
 
   const rangeOptions = [
     /* { key: 'day', value: 'day', text: 'day' }, */
@@ -43,6 +34,7 @@ const Cards = ({ stats, onLoadEvolutionStats, globalStats, dailyStats, countries
     <div id="cards">
       <div className="cards">
         <div className="cards-select">
+          Evolution in a
           <Select 
             placeholder='Select a range' 
             options={rangeOptions} 

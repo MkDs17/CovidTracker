@@ -4,6 +4,7 @@ const initialState = {
   statsData: null,
   globalStats: null,
   dailyStats: null,
+  activeCountry: 'GLO',
 };
 
 // --- action types
@@ -20,6 +21,8 @@ const UPDATE_GLOBAL_STATS_DATA = 'UPDATE_GLOBAL_STATS_DATA';
 
 export const FETCH_EVOLUTION_STATS = 'FETCH_EVOLUTION_STATS';
 const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
+
+const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY'
 
 
 // --- Reducer
@@ -47,6 +50,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         dailyStats: action.value,
+      };
+
+    case SET_ACTIVE_COUNTRY:
+      return {
+        ...state,
+        activeCountry: action.value,
       };
 
     default: return state;
@@ -90,6 +99,11 @@ export const fetchEvolutionStats = ( value) => ({
 })
 export const updateEvolutionStats = ( value ) => ({
   type: UPDATE_EVOLUTION_STATS,
+  value,
+})
+
+export const setActiveCountry = ( value ) => ({
+  type: SET_ACTIVE_COUNTRY,
   value,
 })
 

@@ -2,12 +2,13 @@ import { connect } from 'react-redux';
 
 import Page from '../../components/Page';
 
-import { fetchCountryData, fetchStatsData, fetchEvolutionStats } from '../../store/reducer/data';
+import { fetchCountryData, fetchStatsData, fetchEvolutionStats, setActiveCountry } from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
   return {
     countries: state.data.countries,
+    activeCountry: state.data.activeCountry,
     statsData: state.data.statsData,
     globalStats: state.data.globalStats,
     dailyStats: state.data.dailyStats,
@@ -25,6 +26,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadEvolutionStats: (value) => {
     const action = fetchEvolutionStats(value);
+    dispatch(action);
+  },
+  onSetActiveCountry: (value) => {
+    const action = setActiveCountry(value);
     dispatch(action);
   },
 });

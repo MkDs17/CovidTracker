@@ -230,7 +230,8 @@ export const getThreeMostAffected = (stats, countriesArray) => {
   
 };
 
-export const getPourcentageEvolution = (stats, dailyStats, countriesArray) => {
+export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activeCountry) => {
+  console.log('activeCountry', activeCountry)
   //console.log('stats', stats)
   //console.log('dailyStats', dailyStats)
   //console.log('countriesArray', countriesArray)
