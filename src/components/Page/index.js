@@ -6,6 +6,7 @@ import './page.scss';
 
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
+import EvolutionCurve from '../../containers/Page/EvolutionCurve';
 
 import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
 
@@ -40,7 +41,7 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
           (
             <>
               <div className="page-header">
-                Stats in {activeCountry.name === 'Global' ? 'The World' : activeCountry.name}
+                Stats in {activeCountry.name === 'Global' ? 'the World' : activeCountry.name}
               </div>
               <Cards 
                 stats={statsData} 
@@ -54,6 +55,8 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
               { !_.isEmpty(mostAffectedCountries) && 
                 <Mac stats={mostAffectedCountries} />
               }
+               
+              <EvolutionCurve />
             </>
           )
         }

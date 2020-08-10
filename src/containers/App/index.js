@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import App from '../../components/App';
 
-import { fetchCountries, fetchStatsData, fetchGlobalStatsData } from '../../store/reducer/data';
+import { fetchCountries, fetchStatsData, fetchGlobalStatsData, fetchDailySummary } from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
@@ -21,6 +21,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchGlobalStatsData: () => {
     const action = fetchGlobalStatsData();
+    dispatch(action);
+  },
+  fetchDailySummary: () => {
+    const action = fetchDailySummary();
     dispatch(action);
   },
 });

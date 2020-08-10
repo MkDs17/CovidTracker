@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     font-family: 'Poppins';
-    margin: auto;
+    margin: 1em auto;
 
     &-select {
       margin: 2em 0;
@@ -17,7 +17,7 @@
     &-header {
       font-size: 2em;
       font-weight: 600;
-      margin-bottom: .5em;
+      margin: .5em 0;
     }
   }
 }

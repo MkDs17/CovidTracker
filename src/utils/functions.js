@@ -350,3 +350,73 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
   }
 
 };
+
+export const fakerChartsLineDatas = ( dailySummaryData ) => {
+  
+  let data;
+  let chartLineDatas;
+
+  console.log('dailySummaryData', dailySummaryData)
+
+  if (!_.isEmpty(dailySummaryData)) {
+    data = [{
+      labels: dailySummaryData.map(country => country.reportDate),
+      dataConfirmed: dailySummaryData.map(country => country.confirmed.total),
+      dataDeaths: dailySummaryData.map(country => country.deaths.total),
+    }]
+    //console.log('data', data)
+  }
+  
+  if (!_.isEmpty(data)) {
+    chartLineDatas = {
+      labels: data[0].labels,
+      datasets: [
+        {
+          label: 'Confirmed Case',
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: '#f2711c',
+          borderColor: '#f2711c',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: '#f2711c',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#f2711c',
+          pointHoverBorderColor: '#f2711c',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: data[0].dataConfirmed,
+          //data: [0, 1, 2, 3],
+        }, 
+        {
+          label: 'Deaths',
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: '#db2828',
+          borderColor: '#db2828',
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: '#db2828',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#db2828',
+          pointHoverBorderColor: '#db2828',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: data[0].dataDeaths,
+        }, 
+      ],
+    };
+  }
+  console.log('chartLineDatas', chartLineDatas)
+  return chartLineDatas;
+};

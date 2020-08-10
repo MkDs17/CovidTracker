@@ -4,6 +4,7 @@ const initialState = {
   statsData: null,
   globalStats: null,
   dailyStats: null,
+  dailySummary: null,
   activeCountry: {
     iso: 'GLO',
     name: 'Global',
@@ -19,12 +20,14 @@ const UPDATE_COUNTRIES_ARRAY = 'UPDATE_COUNTRIES_ARRAY';
 export const FETCH_STATS_DATA = 'FETCH_STATS_DATA';
 const UPDATE_STATS_DATA = 'UPDATE_STATS_DATA';
 
-
 export const FETCH_GLOBAL_STATS_DATA = 'FETCH_GLOBAL_STATS_DATA';
 const UPDATE_GLOBAL_STATS_DATA = 'UPDATE_GLOBAL_STATS_DATA';
 
 export const FETCH_EVOLUTION_STATS = 'FETCH_EVOLUTION_STATS';
 const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
+
+export const FETCH_DAILY_SUMMARY = 'FETCH_DAILY_SUMMARY';
+ const UPDATE_DAILY_SUMMARY = 'UPDATE_DAILY_SUMMARY';
 
 const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY'
 const SET_ACTIVE_COUNTRY_NAME = 'SET_ACTIVE_COUNTRY_NAME'
@@ -57,6 +60,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         dailyStats: action.value,
+      };
+
+    case UPDATE_DAILY_SUMMARY:
+      return {
+        ...state,
+        dailySummary: action.value,
       };
 
     case SET_ACTIVE_COUNTRY:
@@ -109,12 +118,20 @@ export const updateGLobalStatsData = ( value ) => ({
   value,
 })
 
-export const fetchEvolutionStats = ( value) => ({
+export const fetchEvolutionStats = ( value ) => ({
   type: FETCH_EVOLUTION_STATS,
   value,
 })
 export const updateEvolutionStats = ( value ) => ({
   type: UPDATE_EVOLUTION_STATS,
+  value,
+})
+
+export const fetchDailySummary = () => ({
+  type: FETCH_DAILY_SUMMARY,
+})
+export const updateDailySummary = ( value ) => ({
+  type: UPDATE_DAILY_SUMMARY,
   value,
 })
 

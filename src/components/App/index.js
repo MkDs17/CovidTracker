@@ -6,12 +6,13 @@ import './app.scss';
 import Header from '../../containers/Header';
 import Page from '../../containers/Page';
 
-function App({ fetchCountries, fetchStatsData, fetchGlobalStatsData }) {
+function App({ fetchCountries, fetchStatsData, fetchGlobalStatsData, fetchDailySummary }) {
 
   useEffect(() => {
     fetchCountries();
     fetchStatsData();
     fetchGlobalStatsData();
+    fetchDailySummary()
   }, [])
 
   return (
