@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Header from '../../components/Header';
 
-import { fetchCountryData, fetchStatsData, fetchEvolutionStats, setActiveCountry, setCountriesOptions } from '../../store/reducer/data';
+import { fetchCountryData, fetchStatsData, setActiveCountry, setCountriesOptions } from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {

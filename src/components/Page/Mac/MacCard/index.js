@@ -72,7 +72,7 @@ function MacCard({ stat, numb }) {
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>
-          
+
           <Feed.Event>
             <Feed.Label>
               <Flag name={stat.third.flag} />

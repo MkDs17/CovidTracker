@@ -10,7 +10,7 @@ const initialState = {
     name: 'Global',
   },
   countriesOptions: [],
-} ;
+};
 
 // --- action types
 export const FETCH_COUNTRIES = 'FETCH_COUNTRIES';

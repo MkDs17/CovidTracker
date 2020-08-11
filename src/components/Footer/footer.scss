@@ -1,0 +1,58 @@
+@import 'src/styles/vars';
+
+.footer {
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,0,0, .7);
+  width: 100%;
+
+  &-links {
+    & a {
+      margin: 0 .5em;
+      & svg {
+        color: rgba(0,0,0, .7);
+        font-size: 1.6em;
+      }
+    }
+  
+    &-github:hover {
+      & svg {
+        color: black;
+        transition: .5s;
+      }
+    }
+    &-twitter:hover {
+      & svg {
+        color: rgb(29, 161, 242);
+        transition: .5s;
+      }
+    }
+    &-linkedin:hover {
+      & svg {
+        color: $primary;
+        transition: .5s;
+      }
+    }
+  }
+
+  &-catch-phrase {
+    font-size: .95em;
+    font-style: italic;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: .3em;
+    & a {
+      color: $primary;
+      margin: 0 .2em;
+    }
+    & a:hover {
+      color: $primary-hover;
+    }
+  }
+
+}

@@ -4,7 +4,6 @@ import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsDat
 const dataMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case FETCH_COUNTRIES: {
-
       axios({
         method: 'get',
         url: 'https://covid19.mathdro.id/api/countries',
@@ -21,7 +20,6 @@ const dataMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_STATS_DATA: {
-
       axios({
         method: 'get',
         url: 'https://covid19.mathdro.id/api/',
@@ -38,7 +36,6 @@ const dataMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_GLOBAL_STATS_DATA: {
-
       axios({
         method: 'get',
         url: 'https://covid19.mathdro.id/api/confirmed',
@@ -55,56 +52,51 @@ const dataMiddleware = (store) => (next) => (action) => {
     }
 
     case FETCH_COUNTRY_DATA: {
-
       axios({
         method: 'get',
-        url: `https://covid19.mathdro.id/api/countries/${action.value}` ,
+        url: `https://covid19.mathdro.id/api/countries/${action.value}`,
         headers: { 'Content-Type': 'application/json' },
       })
-      .then((response) => {
-        store.dispatch(updateStatsData(response.data));
-      })
-      .catch((error) => {
-        console.log('Houston ? We got trouble', error);
-      });
-      
+        .then((response) => {
+          store.dispatch(updateStatsData(response.data));
+        })
+        .catch((error) => {
+          console.log('Houston ? We got trouble', error);
+        });
       break;
     }
 
     case FETCH_DAILY_SUMMARY: {
-
       axios({
         method: 'get',
         url: 'https://covid19.mathdro.id/api/daily' ,
         headers: { 'Content-Type': 'application/json' },
       })
-      .then((response) => {
-        store.dispatch(updateDailySummary(response.data));
-      })
-      .catch((error) => {
-        console.log('Houston ? We got trouble', error);
-      });
-      
+        .then((response) => {
+          store.dispatch(updateDailySummary(response.data));
+        })
+        .catch((error) => {
+          console.log('Houston ? We got trouble', error);
+        });
       break;
     }
-    
-    case FETCH_EVOLUTION_STATS: {
 
+    case FETCH_EVOLUTION_STATS: {
       const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
       // Get timestamp for Now
       const actualTimestamp = Math.floor(Date.now()/1000.0);
 
       // Get timestamp to period searched
-      const searchedTimeStamp = actualTimestamp - action.value
+      const searchedTimeStamp = actualTimestamp - action.value;
 
       // Get date format via timestamp
       const getFinalDate = new Date(searchedTimeStamp * 1000).toLocaleString('en-EN', dateOptions);
 
       // Format date to correspond to api url
-      const formatDate = getFinalDate.replace(/\//g, '-')
+      const formatDate = getFinalDate.replace(/\//g, '-');
 
-      let urlEnding = formatDate
+      const urlEnding = formatDate;
 
       axios({
         method: 'get',
