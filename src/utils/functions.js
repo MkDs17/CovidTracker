@@ -1,5 +1,11 @@
 import _ from 'lodash';
 
+const thousands_separators = (num) => {
+  const num_parts = num.toString().split(".")
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+  return num_parts.join(".")
+}
+
 export const getNameOfActiveCountry = (countries, activeCountry) => {
   let country = countries.find(country => country.value === activeCountry);
   return country.text
@@ -359,12 +365,12 @@ export const fakerChartsLineDatas = ( dailySummaryData ) => {
   console.log('dailySummaryData', dailySummaryData)
 
   if (!_.isEmpty(dailySummaryData)) {
+
     data = [{
       labels: dailySummaryData.map(country => country.reportDate),
       dataConfirmed: dailySummaryData.map(country => country.confirmed.total),
       dataDeaths: dailySummaryData.map(country => country.deaths.total),
     }]
-    //console.log('data', data)
   }
   
   if (!_.isEmpty(data)) {
@@ -391,7 +397,6 @@ export const fakerChartsLineDatas = ( dailySummaryData ) => {
           pointRadius: 1,
           pointHitRadius: 10,
           data: data[0].dataConfirmed,
-          //data: [0, 1, 2, 3],
         }, 
         {
           label: 'Deaths',
