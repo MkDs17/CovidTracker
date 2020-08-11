@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Select } from 'semantic-ui-react';
 import _ from 'lodash';
 
 import './page.scss';
@@ -25,25 +24,23 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
     }
 
     onLoadEvolutionStats(2629743)
-
   }, [countries, globalStats]);
 
   useEffect(() => {
     setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry))
-    
   }, [activeRange, dailyStats, activeCountry])
-  
+
   return (
     <div id="page">
       <div className="page">
 
-        { statsData != undefined && 
+        { statsData !== undefined &&
           (
             <>
               <div className="page-header">
                 Stats in {activeCountry.name === 'Global' ? 'the World' : activeCountry.name}
               </div>
-              <Cards 
+              <Cards
                 stats={statsData} 
                 globalStats={globalStats} 
                 activeRange={activeRange}

@@ -44,9 +44,8 @@ const Cards = ({ stats, onLoadEvolutionStats, activeRange, setActiveRange, activ
             }}
           />
         </div>
-        
-        { activeEvolution !== undefined && 
-        <Card.Group>
+        { activeEvolution !== undefined &&
+        <Card.Group centered>
           <CardCustom 
             title={'Confirmed'} 
             data={stats.confirmed} 

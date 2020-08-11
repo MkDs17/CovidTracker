@@ -2,8 +2,6 @@
 
 #page {
   & .page {
-    height: 80vh;
-    width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,10 +20,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 992px) {
   #page {
     & .page {
-      width: inherit;
+      width: 910px;
     }
-  }  
+  }
 }

@@ -16,7 +16,7 @@ function App({ stats }) {
           <h2><span> Most Affected Countries</span></h2>
         </div>
           <div className="mac-content">
-            <Card.Group>
+            <Card.Group centered>
               {stats.map((object, i) => {
                 return (
                   <MacCard stat={object} key={i} numb={i} />
