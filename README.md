@@ -5,7 +5,7 @@
 ![alt Gif du projet InspiQuotesv2](src/public/assets/img/covid-tracker.png)
 
 ## What's this ?
-Web application buiilt with React for Covid-19 data visualization
+Web application built with React for Covid-19 data visualization
 
 
 > #### Readme in Progress ...
