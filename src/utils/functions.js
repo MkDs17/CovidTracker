@@ -48,8 +48,8 @@ export const getThreeMostAffected = (stats, countriesArray) => {
         countConfirmed.push(country.confirmed)
         countRecovered.push(country.recovered)
         countDeaths.push(country.deaths)
-      })
-      
+      });
+
       const sumConfirmed = countConfirmed.reduce(reducer)
       const sumRecovered = countRecovered.reduce(reducer)
       const sumDeaths = countDeaths.reduce(reducer)
@@ -57,26 +57,25 @@ export const getThreeMostAffected = (stats, countriesArray) => {
       // Verifier que la propriete flag contient bien une valeur, le cas écheant on passe la valeur en minuscule 
       const flag  = array[0].iso2
       if (flag !== undefined) {
-        const flagToLowerCase = flag.toLowerCase()
-        
+        const flagToLowerCase = flag.toLowerCase();
+
         totalSumConfirmedByCountry.push({
           name: array[0].countryRegion,
           total: sumConfirmed,
           flag: flagToLowerCase,
-        })
+        });
         totalSumRecoveredByCountry.push({
           name: array[0].countryRegion,
           total: sumRecovered,
           flag: flagToLowerCase,
-        })
+        });
         totalSumDeathsByCountry.push({
           name: array[0].countryRegion,
           total: sumDeaths,
           flag: flagToLowerCase,
-        })
+        });
       }
-
-    })
+    });
   }
 
   /********* CONFIRMED PART *********/
@@ -85,16 +84,16 @@ export const getThreeMostAffected = (stats, countriesArray) => {
   let secondConfirmed;
   let thirdConfirmed;
 
-  totalSumConfirmedByCountry.map(country => {
+  totalSumConfirmedByCountry.map((country) => {
     // If firstConfirmed is Empty then put a country in it
     if(_.isEmpty(firstConfirmed)) {
       firstConfirmed = country
-    } 
+    }
     
     // Pick the 1st worst State and put object on firstConfirmed variable
     else if( country.total > firstConfirmed.total) {
       firstConfirmed = country
-    }
+    };
   })
 
   totalSumConfirmedByCountry.map(country => {
@@ -242,14 +241,14 @@ export const getThreeMostAffected = (stats, countriesArray) => {
 };
 
 export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activeCountry) => {
-  let sameCountry = []
-  let dailySameCountry = []
+  let sameCountry = [];
+  let dailySameCountry = [];
 
-  let reuniteTotalDataByCountry = []
-  let reuniteDailyDataByCountry = []
+  const reuniteTotalDataByCountry = [];
+  const reuniteDailyDataByCountry = [];
 
-  let totalEvolution = {}
-  let evolution = {}
+  let totalEvolution = {};
+  //let evolution = {}
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   
@@ -334,13 +333,13 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
       const sumDailyRecovered = dailyCountRecovered.reduce(reducer)
       const sumDailyDeaths = dailyCountDeaths.reduce(reducer)
       
-      if(sumTotalConfirmed !== 0 && sumTotalRecovered !== 0 && sumTotalDeaths !== 0 && sumDailyConfirmed !== 0 && sumDailyRecovered !== 0 && sumDailyDeaths !== 0 ) {
+      /* if(sumTotalConfirmed !== 0 && sumTotalRecovered !== 0 && sumTotalDeaths !== 0 && sumDailyConfirmed !== 0 && sumDailyRecovered !== 0 && sumDailyDeaths !== 0 ) {
         evolution = {
           confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
           recovered : Math.round(((sumTotalRecovered - sumDailyRecovered) / sumDailyRecovered) * 100),
           deaths : Math.round(((sumTotalDeaths - sumDailyDeaths) / sumDailyDeaths) * 100),
         }
-      }
+      } */
 
       totalEvolution = {
         confirmed : Math.round(((sumTotalConfirmed - sumDailyConfirmed) / sumDailyConfirmed) * 100),
@@ -348,6 +347,8 @@ export const getPourcentageEvolution = (stats, dailyStats, countriesArray, activ
         deaths : Math.round(((sumTotalDeaths - sumDailyDeaths) / sumDailyDeaths) * 100),
       }
     }
+    //console.log('evolution', evolution);
+    console.log('total evolution', totalEvolution);
   }
 
   
