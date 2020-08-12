@@ -13,9 +13,6 @@ Web application buiilt with React for Covid-19 data visualization
 
 ---------------- 
 
-
-I am open to integrate new quotes, do not hesitate to share yours with me
-
 You can reach me on GitHub or on [StackOverflow](https://stackoverflow.com/users/13077371/mkds17)
 
 Peace ! 
