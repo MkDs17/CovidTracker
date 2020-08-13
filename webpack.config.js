@@ -13,12 +13,14 @@ const port = 8080;
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+
 // Config de Webpack
 module.exports = {
   // Passe le build par dèfaut en déeveloppement
   mode: 'development',
   // Source maps
-  devtool: 'eval-source-map',
+  //devtool: 'eval-source-map',
+  devtool: '',
   // Expose le dossier src/ pour les imports
   resolve: {
     alias: {
