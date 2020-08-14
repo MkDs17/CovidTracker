@@ -26,7 +26,7 @@ Web application built with React for Covid-19 data visualization
 | Status | Goal | Labels | Repository |
 | :---: | :--- | --- | --- |
 | ✔  | Publish projet v1         | `done`        | [master](https://github.com/MkDs17/CovidTracker/tree/master) |
-| ❌ | Add Yesterday Component   | `in progress` |                                                              |
+| ❌ | Add Yesterday Component   | `in progress` | [dev](https://github.com/MkDs17/CovidTracker/tree/dev)       |
 | ❌ | Format numbers in Chart   | `todo`        |                                                              |
 | ❌ | Improve Chart design      | `todo`        |                                                              |
 | ❌ | Create map Component      | `todo`        |                                                              |
