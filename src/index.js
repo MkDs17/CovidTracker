@@ -8,7 +8,6 @@ import 'src/styles/index.scss';
 
 // External Lib
 import 'semantic-ui-css/semantic.min.css';
-import 'emoji-mart/css/emoji-mart.css';
 
 import App from '../src/containers/App';
 
