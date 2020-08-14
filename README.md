@@ -15,7 +15,7 @@ Web application built with React for Covid-19 data visualization
 
 ## Main Stacks
 | Stacks    |            |          |         |                                                     |                                                                         |
-|:---------:|:----------:|:--------:|:-------:|:---------------------------------------------------:|:-----------------------------------------------------------------------:|
+|:---------:|:----------|-------|-------|---------------------------------------------------|-----------------------------------------------------------------------|
 | **Front** | React.js   | Redux    | Webpack | [react-semantic-ui](https://react.semantic-ui.com/) |[react-chartjs-2](https://github.com/jerairrest/react-chartjs-2)         |
 
 
