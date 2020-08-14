@@ -2,11 +2,12 @@ import { connect } from 'react-redux';
 
 import App from '../../components/App';
 
-import { fetchCountries, fetchStatsData, fetchGlobalStatsData, fetchDailySummary } from '../../store/reducer/data';
+import { fetchCountries, fetchStatsData, fetchGlobalStatsData, fetchDailySummary, fetchYesterdayStats} from '../../store/reducer/data';
 
 // eslint-disable-next-line arrow-body-style
 const mapStateToProps = (state) => {
   return {
+    activeCountry: state.data.activeCountry,
   };
 };
 
@@ -25,6 +26,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchDailySummary: () => {
     const action = fetchDailySummary();
+    dispatch(action);
+  },
+  fetchYesterdayStats: () => {
+    const action = fetchYesterdayStats();
     dispatch(action);
   },
 });

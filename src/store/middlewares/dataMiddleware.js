@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA, FETCH_GLOBAL_STATS_DATA, updateGLobalStatsData, FETCH_EVOLUTION_STATS, updateEvolutionStats, FETCH_DAILY_SUMMARY, updateDailySummary } from '../reducer/data';
+import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA, FETCH_GLOBAL_STATS_DATA, updateGLobalStatsData, FETCH_EVOLUTION_STATS, updateEvolutionStats, FETCH_DAILY_SUMMARY, updateDailySummary, FETCH_YESTERDAY_STATS, updateYesterdayStats } from '../reducer/data';
 
 const dataMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -69,7 +69,7 @@ const dataMiddleware = (store) => (next) => (action) => {
     case FETCH_DAILY_SUMMARY: {
       axios({
         method: 'get',
-        url: 'https://covid19.mathdro.id/api/daily' ,
+        url: 'https://covid19.mathdro.id/api/daily',
         headers: { 'Content-Type': 'application/json' },
       })
         .then((response) => {
@@ -85,7 +85,7 @@ const dataMiddleware = (store) => (next) => (action) => {
       const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 
       // Get timestamp for Now
-      const actualTimestamp = Math.floor(Date.now()/1000.0);
+      const actualTimestamp = Math.floor(Date.now() / 1000.0);
 
       // Get timestamp to period searched
       const searchedTimeStamp = actualTimestamp - action.value;
@@ -112,7 +112,28 @@ const dataMiddleware = (store) => (next) => (action) => {
 
       break;
     }
-    
+
+    case FETCH_YESTERDAY_STATS: {
+      const {
+        iso,
+      } = store.getState().data.activeCountry;
+      const query = iso === 'GLO' ? 'https://corona.lmao.ninja/v2/all?yesterday=' : `https://corona.lmao.ninja/v2/countries/${iso}?yesterday=true&strict=true&query `;
+
+      axios({
+        method: 'get',
+        url: query,
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((response) => {
+          store.dispatch(updateYesterdayStats(response.data));
+        })
+        .catch((error) => {
+          console.log('Houston ? We got trouble', error);
+        });
+
+      break;
+    }
+
     default: {
       next(action);
     }

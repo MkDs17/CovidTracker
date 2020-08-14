@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
 const thousands_separators = (num) => {
-  const num_parts = num.toString().split(".")
-  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-  return num_parts.join(".")
+  const numParts = num.toString().split('.');
+  numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return numParts.join('.');
 };
 
 export const getNameOfActiveCountry = (countries, activeCountry) => {
-  let country = countries.find(country => country.value === activeCountry);
-  return country.text
+  const country = countries.find((country) => country.value === activeCountry);
+  return country.text;
 };
 
 export const getThreeMostAffected = (stats, countriesArray) => {
@@ -369,7 +369,7 @@ export const chartsLineDatas = (dailySummaryData) => {
           pointRadius: 1,
           pointHitRadius: 10,
           data: data[0].dataConfirmed,
-        }, 
+        },
         {
           label: 'Deaths',
           fill: false,

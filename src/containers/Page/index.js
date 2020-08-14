@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
     globalStats: state.data.globalStats,
     dailyStats: state.data.dailyStats,
     countriesOptions: state.data.countriesOptions,
+    yesterdayStats: state.data.yesterdayStats,
   };
 };
 

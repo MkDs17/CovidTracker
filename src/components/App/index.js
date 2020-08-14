@@ -8,13 +8,24 @@ import Header from '../../containers/Header';
 import Footer from '../Footer';
 import Page from '../../containers/Page';
 
-function App({ fetchCountries, fetchStatsData, fetchGlobalStatsData, fetchDailySummary }) {
+function App({
+  fetchCountries,
+  fetchStatsData,
+  fetchGlobalStatsData,
+  fetchDailySummary,
+  fetchYesterdayStats,
+  activeCountry
+}) {
   useEffect(() => {
     fetchCountries();
     fetchStatsData();
     fetchGlobalStatsData();
     fetchDailySummary();
   }, []);
+
+  useEffect(() => {
+    fetchYesterdayStats();
+  }, [activeCountry]);
 
   return (
     <div id="app">
@@ -34,6 +45,7 @@ App.propTypes = {
   fetchStatsData: PropTypes.func.isRequired,
   fetchGlobalStatsData: PropTypes.func.isRequired,
   fetchDailySummary: PropTypes.func.isRequired,
+  fetchYesterdayStats: PropTypes.func.isRequired,
 };
 
 export default App;

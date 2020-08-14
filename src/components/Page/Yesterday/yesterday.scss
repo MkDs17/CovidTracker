@@ -1,0 +1,19 @@
+@import 'src/styles/vars';
+
+#yesterday {
+  & .yesterday {
+    & .message {
+      & .content {
+        & .text {
+          p:first-child {margin-top: .3em}
+          p:last-child {font-weight: 600}
+        }
+          
+        & p {
+          margin: inherit;
+          & .yesterday-number {font-weight: 600}
+        }
+      }
+    }
+  }
+}

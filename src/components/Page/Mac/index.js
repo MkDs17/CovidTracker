@@ -6,9 +6,6 @@ import './mac.scss';
 import MacCard from './MacCard';
 
 function App({ stats }) {
-
-  console.log('stats into component', stats);
-
   return (
     <div id="mac">
       <div className="mac">

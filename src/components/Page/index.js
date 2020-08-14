@@ -6,10 +6,11 @@ import './page.scss';
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
 import EvolutionCurve from '../../containers/Page/EvolutionCurve';
+import Yesterday from './Yesterday';
 
 import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
 
-const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, fetchStatsData, onLoadEvolutionStats }) => {
+const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats }) => {
   // Set Most Affected Countries stats 
   const [mostAffectedCountries, setmostAffectedCountries] = useState([]);
   // Set Active Range for Select a Range Componenet
@@ -18,17 +19,17 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
   const [activeEvolution, setActiveEvolution] = useState();
 
   useEffect(() => {
-    if (globalStats != null & countries !== null ) {
-      let mac =(getThreeMostAffected(globalStats, countriesOptions));
+    if (globalStats != null && countries !== null) {
+      const mac =(getThreeMostAffected(globalStats, countriesOptions));
       setmostAffectedCountries(mac);
     }
 
-    onLoadEvolutionStats(2629743)
+    onLoadEvolutionStats(2629743);
   }, [countries, globalStats]);
 
   useEffect(() => {
-    setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry))
-  }, [activeRange, dailyStats, activeCountry])
+    setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry));
+  }, [activeRange, dailyStats, activeCountry]);
 
   return (
     <div id="page">
@@ -41,18 +42,18 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
                 Stats in {activeCountry.name === 'Global' ? 'the World' : activeCountry.name}
               </div>
               <Cards
-                stats={statsData} 
-                globalStats={globalStats} 
+                stats={statsData}
+                globalStats={globalStats}
                 activeRange={activeRange}
                 setActiveRange={setActiveRange}
                 activeEvolution={activeEvolution}
                 setActiveEvolution={setActiveEvolution}
               />
-              
-              { !_.isEmpty(mostAffectedCountries) && 
-                <Mac stats={mostAffectedCountries} />
-              }
-               
+
+              { !_.isEmpty(yesterdayStats) && <Yesterday stats={yesterdayStats} /> }
+
+              { !_.isEmpty(mostAffectedCountries) && <Mac stats={mostAffectedCountries} /> }
+
               <EvolutionCurve />
             </>
           )
