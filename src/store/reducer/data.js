@@ -5,6 +5,7 @@ const initialState = {
   globalStats: null,
   dailyStats: null,
   dailySummary: null,
+  yesterdayStats: null,
   activeCountry: {
     iso: 'GLO',
     name: 'Global',
@@ -26,13 +27,15 @@ const UPDATE_GLOBAL_STATS_DATA = 'UPDATE_GLOBAL_STATS_DATA';
 export const FETCH_EVOLUTION_STATS = 'FETCH_EVOLUTION_STATS';
 const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
 
+export const FETCH_YESTERDAY_STATS = 'FETCH_YESTERDAY_STATS';
+const UPDATE_YESTERDAY_STATS = 'UPDATE_YESTERDAY_STATS';
+
 export const FETCH_DAILY_SUMMARY = 'FETCH_DAILY_SUMMARY';
- const UPDATE_DAILY_SUMMARY = 'UPDATE_DAILY_SUMMARY';
+const UPDATE_DAILY_SUMMARY = 'UPDATE_DAILY_SUMMARY';
 
-const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY'
-const SET_ACTIVE_COUNTRY_NAME = 'SET_ACTIVE_COUNTRY_NAME'
+const SET_ACTIVE_COUNTRY = 'SET_ACTIVE_COUNTRY';
 
-const SET_COUNTRIES_OPTIONS = 'SET_COUNTRIES_OPTIONS'
+const SET_COUNTRIES_OPTIONS = 'SET_COUNTRIES_OPTIONS';
 
 
 // --- Reducer
@@ -62,6 +65,12 @@ const reducer = (state = initialState, action = {}) => {
         dailyStats: action.value,
       };
 
+    case UPDATE_YESTERDAY_STATS:
+      return {
+        ...state,
+        yesterdayStats: action.value,
+      };
+
     case UPDATE_DAILY_SUMMARY:
       return {
         ...state,
@@ -80,9 +89,9 @@ const reducer = (state = initialState, action = {}) => {
     case SET_COUNTRIES_OPTIONS:
       return {
         ...state,
-        countriesOptions:  action.value,
+        countriesOptions: action.value,
       };
-    
+
     default: return state;
   }
 };
@@ -91,59 +100,67 @@ const reducer = (state = initialState, action = {}) => {
 
 export const fetchCountries = () => ({
   type: FETCH_COUNTRIES,
-})
-export const updateCountriesArray = ( value ) => ({
+});
+export const updateCountriesArray = (value) => ({
   type: UPDATE_COUNTRIES_ARRAY,
   value,
-})
+});
 
-export const fetchCountryData = ( value ) => ({
+export const fetchCountryData = (value) => ({
   type: FETCH_COUNTRY_DATA,
   value,
-})
+});
 
 export const fetchStatsData = () => ({
   type: FETCH_STATS_DATA,
-})
-export const updateStatsData = ( value ) => ({
+});
+export const updateStatsData = (value) => ({
   type: UPDATE_STATS_DATA,
   value,
-})
+});
 
 export const fetchGlobalStatsData = () => ({
   type: FETCH_GLOBAL_STATS_DATA,
-})
-export const updateGLobalStatsData = ( value ) => ({
+});
+export const updateGLobalStatsData = (value) => ({
   type: UPDATE_GLOBAL_STATS_DATA,
   value,
-})
+});
 
-export const fetchEvolutionStats = ( value ) => ({
+export const fetchEvolutionStats = (value) => ({
   type: FETCH_EVOLUTION_STATS,
   value,
-})
-export const updateEvolutionStats = ( value ) => ({
+});
+export const updateEvolutionStats = (value) => ({
   type: UPDATE_EVOLUTION_STATS,
   value,
-})
+});
+
+export const fetchYesterdayStats = () => ({
+  type: FETCH_YESTERDAY_STATS,
+});
+export const updateYesterdayStats = (value) => ({
+  type: UPDATE_YESTERDAY_STATS,
+  value,
+});
 
 export const fetchDailySummary = () => ({
   type: FETCH_DAILY_SUMMARY,
-})
-export const updateDailySummary = ( value ) => ({
+});
+export const updateDailySummary = (value) => ({
   type: UPDATE_DAILY_SUMMARY,
   value,
-})
+});
 
-export const setActiveCountry = ( value ) => ({
+export const setActiveCountry = (value) => ({
   type: SET_ACTIVE_COUNTRY,
   value,
-})
+});
 
-export const setCountriesOptions = ( value ) => ({
+export const setCountriesOptions = (value) => ({
   type: SET_COUNTRIES_OPTIONS,
   value,
-})
+});
 
 // --- export
 export default reducer;

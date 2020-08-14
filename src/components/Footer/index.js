@@ -11,7 +11,7 @@ const Footer = () => (
       <a aria-label="LinkedIn Link" className="footer-links-linkedin" href="http://linkedin.com/in/mickael-rassicot"><FaLinkedin /></a>
     </div>
     <div className="footer-catch-phrase">
-      Data provided by <a href="http://https://github.com/mathdroid/covid-19-api"> mathdroid</a> API
+      Data provided by <a href="http://https://github.com/mathdroid/covid-19-api"> mathdroid API</a> & <a href="https://corona.lmao.ninja/"> Open Disease Data</a>
     </div>
   </div>
 );

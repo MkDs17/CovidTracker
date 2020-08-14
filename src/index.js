@@ -9,7 +9,7 @@ import 'src/styles/index.scss';
 // External Lib
 import 'semantic-ui-css/semantic.min.css';
 
-import App from '../src/containers/App';
+import App from './containers/App';
 
 const rootComponent = (
   <Provider store={store}>
