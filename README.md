@@ -14,13 +14,24 @@ Web application built with React for Covid-19 data visualization
 * Evolution curve since the appearance of the Covid-19 virus
 
 ## Main Stacks
-| Stacks    |            |          |         |               |                                                                         |
-|:---------:|:----------:|:--------:|:-------:|:-------------:|:-----------------------------------------------------------------------:|
-| **Front** | React.js   | Redux    | Webpack | Semantic-ui   |[react-chartjs-2](https://github.com/jerairrest/react-chartjs-2)         |
+| Stacks    |            |          |         |                                                     |                                                                         |
+|:---------:|:----------:|:--------:|:-------:|:---------------------------------------------------:|:-----------------------------------------------------------------------:|
+| **Front** | React.js   | Redux    | Webpack | [react-semantic-ui](https://react.semantic-ui.com/) |[react-chartjs-2](https://github.com/jerairrest/react-chartjs-2)         |
 
 
-> #### #### Data is provided by great [covid-19-api](https://github.com/mathdroid/covid-19-api)
+> #### Data is provided by great [covid-19-api](https://github.com/mathdroid/covid-19-api)
 
+## Roadmap
+
+🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**1 / 5** goals completed **(20%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Aug 14 2020**
+
+| Status | Goal | Labels | Repository |
+| :---: | :--- | --- | --- |
+| ✔  | Publish projet v1         | `done`        | [master](https://github.com/MkDs17/CovidTracker/tree/master) |
+| ❌ | Add Yeasterday Component  | `in progress` |                                                              |
+| ❌ | Format numbers in Charts  | `todo`        |                                                              |
+| ❌ | Improve Charts design     | `todo`        |                                                              |
+| ❌ | Create map Component      | `todo`        |                                                              |
 
 ---------------- 
 
