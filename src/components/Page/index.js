@@ -6,6 +6,7 @@ import './page.scss';
 
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
+import Map from './Map';
 import EvolutionCurve from '../../containers/Page/EvolutionCurve';
 import Yesterday from './Yesterday';
 
@@ -63,6 +64,7 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
             { !_.isEmpty(mostAffectedCountries) && <Mac stats={mostAffectedCountries} /> }
 
             <EvolutionCurve />
+            <Map />
           </>
         )}
 

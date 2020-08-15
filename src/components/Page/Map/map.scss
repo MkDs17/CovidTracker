@@ -1,0 +1,11 @@
+@import 'src/styles/vars';
+
+#map {
+  width: 100%;
+  & .map {
+    &-container {
+      width: 100%;
+      height: 40vh;
+    }
+  }
+}

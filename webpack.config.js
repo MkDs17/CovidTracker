@@ -6,6 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 // Config pour le devServer
 const host = 'localhost';
@@ -19,8 +20,8 @@ module.exports = {
   // Passe le build par dèfaut en déeveloppement
   mode: 'development',
   // Source maps
-  //devtool: 'eval-source-map',
-  devtool: '',
+  devtool: 'eval-source-map',
+  //devtool: '',
   // Expose le dossier src/ pour les imports
   resolve: {
     alias: {
@@ -150,5 +151,6 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new Dotenv(),
   ],
 };
