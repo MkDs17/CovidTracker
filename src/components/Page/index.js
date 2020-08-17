@@ -12,7 +12,7 @@ import Yesterday from './Yesterday';
 
 import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
 
-const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats }) => {
+const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats, globalStatsWithCoordinates }) => {
   // Set Most Affected Countries stats 
   const [mostAffectedCountries, setmostAffectedCountries] = useState([]);
   // Set Active Range for Select a Range Componenet
@@ -35,6 +35,7 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
     setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry));
   }, [activeRange, dailyStats, activeCountry]);
 
+  // Use effect for the loading Component
   useEffect(() => {
     if (!_.isEmpty(countries) & !_.isEmpty(countriesOptions) && !_.isEmpty(activeCountry) && !_.isEmpty(statsData) && !_.isEmpty(globalStats) && !_.isEmpty(dailyStats), !_.isEmpty(yesterdayStats)) {
       setLoaderStatement(false);
@@ -64,7 +65,8 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
             { !_.isEmpty(mostAffectedCountries) && <Mac stats={mostAffectedCountries} /> }
 
             <EvolutionCurve />
-            <Map />
+
+            { !_.isEmpty(globalStatsWithCoordinates) && <Map stats={globalStatsWithCoordinates} /> }
           </>
         )}
 
