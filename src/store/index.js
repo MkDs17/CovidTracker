@@ -7,7 +7,7 @@ import reducer from './reducer';
 import dataMiddleWare from './middlewares/dataMiddleware';
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Améliorations pour le store
 const enhancers = composeEnhancers(
