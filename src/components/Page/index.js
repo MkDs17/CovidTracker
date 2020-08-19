@@ -10,9 +10,11 @@ import Map from './Map';
 import EvolutionCurve from '../../containers/Page/EvolutionCurve';
 import Yesterday from './Yesterday';
 
-import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
+import { getThreeMostAffected, getPourcentageEvolution, getDataForMap } from '../../utils/functions';
 
-const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats, globalStatsWithCoordinates }) => {
+import countriesdataBase from '../../data/countriesDB.json';
+
+const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats }) => {
   // Set Most Affected Countries stats 
   const [mostAffectedCountries, setmostAffectedCountries] = useState([]);
   // Set Active Range for Select a Range Componenet
@@ -21,6 +23,8 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
   const [activeEvolution, setActiveEvolution] = useState();
 
   const [loader, setLoaderStatement] = useState(true);
+
+  const [dataForMapComponent, setDataForMapComponent] = useState([]);
 
   useEffect(() => {
     if (globalStats != null && countries !== null) {
@@ -41,6 +45,12 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
       setLoaderStatement(false);
     }
   }, [countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, yesterdayStats]);
+
+  useEffect(() => {
+    if (!_.isEmpty(globalStats)) {
+      setDataForMapComponent(getDataForMap(globalStats, countriesdataBase));
+    }
+  }, [globalStats]);
 
   return (
     <div id="page">
@@ -66,7 +76,7 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
 
             <EvolutionCurve />
 
-            { !_.isEmpty(globalStatsWithCoordinates) && <Map stats={globalStatsWithCoordinates} /> }
+            { !_.isEmpty(dataForMapComponent) && <Map stats={dataForMapComponent} /> }
           </>
         )}
 

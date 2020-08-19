@@ -31,7 +31,7 @@ export const getThreeMostAffected = (stats, countriesArray) => {
     if (verifyEmptyness === true) {
       reuniteDataByCountry.push(sameCountry);
     }
-  })
+  });
 
   if (reuniteDataByCountry !== undefined) {
     reuniteDataByCountry.map((array) => {
@@ -395,4 +395,72 @@ export const chartsLineDatas = (dailySummaryData) => {
     };
   }
   return chartLineDatas;
+};
+
+export const getDataForMap = (stats, dataBase) => {
+  const reuniteDataByCountry = [];
+
+  const totalSumDatasByCountry = [];
+
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  dataBase.features.forEach((option) => {
+    // order array with all countryRegion in same array
+    const sameCountry = stats.filter((country) => country.iso3 === option.properties.adm0_a3);
+    // verfiy some array aren't empty
+    const verifyEmptyness = !_.isEmpty(sameCountry);
+    // if array aren't empty, then push em into reunitedDataCountry arrat
+    if (verifyEmptyness === true) {
+      reuniteDataByCountry.push(sameCountry);
+    }
+  });
+
+  if (reuniteDataByCountry !== undefined) {
+    reuniteDataByCountry.map((array) => {
+      const countConfirmed = [];
+      const countRecovered = [];
+      const countDeaths = [];
+
+      array.map((country) => {
+        countConfirmed.push(country.confirmed);
+        countRecovered.push(country.recovered);
+        countDeaths.push(country.deaths);
+      });
+
+      const sumConfirmed = countConfirmed.reduce(reducer);
+      const sumRecovered = countRecovered.reduce(reducer);
+      const sumDeaths = countDeaths.reduce(reducer);
+
+      totalSumDatasByCountry.push({
+        name: array[0].countryRegion,
+        confirmed: sumConfirmed,
+        recovered: sumRecovered,
+        deaths: sumDeaths,
+        iso3: array[0].iso3,
+      });
+    });
+  }
+
+  const finalDatasTransformed = [];
+  totalSumDatasByCountry.map((country) => {
+    dataBase.features.filter((data) => {
+      if (country.iso3 === data.properties.adm0_a3) {
+        const dataToPush = {
+          type: 'Feature',
+          properties: {
+            ...data.properties,
+            ...country,
+          },
+          geometry: {
+            ...data.geometry,
+          },
+        };
+        if (!_.isEmpty(dataToPush)) {
+          finalDatasTransformed.push(dataToPush);
+        }
+      }
+    });
+  });
+
+  return finalDatasTransformed;
 };

@@ -5,39 +5,55 @@ import _ from 'lodash';
 
 import './map.scss';
 
-import data from './test.json';
+import dataExample from '../../../data/countriesDB.json';
 
 const options = [{
   name: 'Confirmed',
   description: 'Estimated confirmed cases',
   property: 'confirmed',
   stops: [
-    [0, '#f8d5cc'],
-    [1000000, '#f4bfb6'],
-    [5000000, '#f1a8a5'],
-    [10000000, '#ee8f9a'],
-    [50000000, '#ec739b'],
-    [100000000, '#dd5ca8'],
-    [250000000, '#c44cc0'],
-    [500000000, '#9f43d7'],
-    [1000000000, '#6e40e6'],
+    [0, '#fff3e0'],
+    [10000, '#ffe0b2'],
+    [50000, '#ffcc80'],
+    [100000, '#ffb74d'],
+    [500000, '#ffa726'],
+    [1000000, '#ff9800'],
+    [2500000, '#fb8c00'],
+    [5000000, '#f57c00'],
+    [10000000, '#ef6c00'],
   ],
 }, {
   name: 'Deaths',
   description: 'Estimate deaths',
   property: 'deaths',
   stops: [
-    [0, '#f8d5cc'],
-    [1000, '#f4bfb6'],
-    [5000, '#f1a8a5'],
-    [10000, '#ee8f9a'],
-    [50000, '#ec739b'],
-    [100000, '#dd5ca8'],
-    [250000, '#c44cc0'],
-    [5000000, '#9f43d7'],
-    [10000000, '#6e40e6'],
+    [0, '#ffebee'],
+    [1000, '#ffcdd2'],
+    [5000, '#ef9a9a'],
+    [10000, '#e57373'],
+    [50000, '#ef5350'],
+    [100000, '#f44336'],
+    [250000, '#e53935'],
+    [5000000, '#d32f2f'],
+    [10000000, '#c62828'],
   ],
-}];
+}, {
+  name: 'Recovered',
+  description: 'Estimate recovered',
+  property: 'recovered',
+  stops:  [
+    [0, '#e8f5e9'],
+    [10000, '#c8e6c9'],
+    [50000, '#a5d6a7'],
+    [100000, '#81c784'],
+    [500000, '#66bb6a'],
+    [1000000, '#4caf50'],
+    [2500000, '#43a047'],
+    [5000000, '#388e3c'],
+    [10000000, '#2e7d32'],
+  ],
+  }
+];
 
 mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
 
@@ -81,45 +97,31 @@ const Map = ({ stats }) => {
     }; */
 
 
-    
-    
-    for (const [key, value, i] of Object.entries(data)) {
-      if (key === 'features') {
-        console.log('value', value)
-        console.log('i', i)
-        //for (i = 0; i < )
-        
-        
-        //console.log('value', value[i].properties);
-        
-        //interestData = _.findKey(value, { 'age': 1})
-        
-        /*  interestData = _.findKey(value, { 'age': 1})
-        console.log('interestData', interestData); */
-        /*
-        for (const [key1, value1] of Object.entries(value)) {
-          //console.log('value', value1)
-        } */
-      }
-    }
-    
-    
-    const dataGeoJson = stats.map((country, i) => {
-    });
+    const data = {
+      type: 'FeatureCollection',
+      features: [
+        ...stats,
+      ],
+    };
 
+    const searchOne = data.features.filter((country) => {
+      console.log('country', country);
+      return (
+      country.properties.adm0_a3 === 'USA'
+      )
+    })
+    console.log('searchOne', searchOne);
 
-
-    console.log('dataGeoJson', dataGeoJson);
 
     console.log('data', data);
-    console.log('stats', stats);
+    console.log('dataExample', dataExample);
 
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
     map.on('load', () => {
       map.addSource('countries', {
         type: 'geojson',
-        data: dataGeoJson,
+        data,
       });
 
       map.addLayer({
