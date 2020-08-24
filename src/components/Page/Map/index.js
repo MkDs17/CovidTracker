@@ -9,7 +9,7 @@ import dataExample from '../../../data/countriesDB.json';
 
 const options = [{
   name: 'Confirmed',
-  description: 'Estimated confirmed cases',
+  description: 'Estimate confirmed',
   property: 'confirmed',
   stops: [
     [0, '#fff3e0'],
@@ -66,7 +66,8 @@ const Map = ({ stats }) => {
       container: mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [2.294919, 48.858001],
-      zoom: 2,
+      maxZoom: 1,
+      minZoom: 1,
     });
 
     const setFill = () => {
@@ -77,45 +78,13 @@ const Map = ({ stats }) => {
       });
     };
 
-    /* const dataGeoJson = {
-      type: 'FeatureCollection',
-      features: stats.map((item, i) => (
-        {
-          id: i,
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [item.coordinates.longitude, item.coordinates.latitude],
-          },
-          properties: {
-            title: item.country,
-            confirmed: item.stats.confirmed,
-            deaths: item.stats.deaths,
-          },
-        }
-      )),
-    }; */
-
-
     const data = {
       type: 'FeatureCollection',
       features: [
         ...stats,
       ],
     };
-
-    const searchOne = data.features.filter((country) => {
-      console.log('country', country);
-      return (
-      country.properties.adm0_a3 === 'USA'
-      )
-    })
-    console.log('searchOne', searchOne);
-
-
-    console.log('data', data);
-    console.log('dataExample', dataExample);
-
+    
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
     map.on('load', () => {
@@ -154,6 +123,10 @@ const Map = ({ stats }) => {
   return (
     <div id="map">
       <div className="map">
+        <div className="map-title">
+          <h2><span>Map Cases</span></h2>
+        </div>
+
         <div ref={mapRef} className="map-container">
           <div className="toggle-group absolute top left ml12 mt12 border border--2 border--white bg-white shadow-darken10 z1">
             {options.map(renderOptions)}

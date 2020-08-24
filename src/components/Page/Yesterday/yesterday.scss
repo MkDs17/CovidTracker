@@ -3,6 +3,7 @@
 #yesterday {
   & .yesterday {
     & .message {
+      height: 100%;
       & .content {
         & .text {
           p:first-child {margin-top: .3em}
@@ -16,4 +17,12 @@
       }
     }
   }
+}
+
+@media (max-width: 768px) {
+  #yesterday {
+    & .yesterday {
+      font-size: .8em;
+    }
+  }  
 }
