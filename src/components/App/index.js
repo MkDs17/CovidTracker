@@ -14,13 +14,15 @@ function App({
   fetchGlobalStatsData,
   fetchDailySummary,
   fetchYesterdayStats,
-  activeCountry
+  activeCountry,
+  fetchGlobalStatsDataWithCoordinates,
 }) {
   useEffect(() => {
     fetchCountries();
     fetchStatsData();
     fetchGlobalStatsData();
     fetchDailySummary();
+    fetchGlobalStatsDataWithCoordinates();
   }, []);
 
   useEffect(() => {

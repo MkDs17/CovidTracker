@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA, FETCH_GLOBAL_STATS_DATA, updateGLobalStatsData, FETCH_EVOLUTION_STATS, updateEvolutionStats, FETCH_DAILY_SUMMARY, updateDailySummary, FETCH_YESTERDAY_STATS, updateYesterdayStats } from '../reducer/data';
+import { FETCH_COUNTRIES, updateCountriesArray, FETCH_STATS_DATA, updateStatsData, FETCH_COUNTRY_DATA, FETCH_GLOBAL_STATS_DATA, updateGLobalStatsData, FETCH_EVOLUTION_STATS, updateEvolutionStats, FETCH_DAILY_SUMMARY, updateDailySummary, FETCH_YESTERDAY_STATS, updateYesterdayStats, FETCH_GLOBAL_STATS_DATA_WITH_COORDINATES, updateGLobalStatsDataWithCoordinates } from '../reducer/data';
 
 const dataMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
@@ -50,6 +50,23 @@ const dataMiddleware = (store) => (next) => (action) => {
 
       break;
     }
+
+    case FETCH_GLOBAL_STATS_DATA_WITH_COORDINATES: {
+      axios({
+        method: 'get',
+        url: 'https://corona.lmao.ninja/v2/jhucsse',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((response) => {
+          store.dispatch(updateGLobalStatsDataWithCoordinates(response.data));
+        })
+        .catch((error) => {
+          console.log('Houston ? We got trouble', error);
+        });
+
+      break;
+    }
+
 
     case FETCH_COUNTRY_DATA: {
       axios({

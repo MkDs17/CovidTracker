@@ -11,6 +11,7 @@ const initialState = {
     name: 'Global',
   },
   countriesOptions: [],
+  globalStatsWithCoordinates: null,
 };
 
 // --- action types
@@ -23,6 +24,9 @@ const UPDATE_STATS_DATA = 'UPDATE_STATS_DATA';
 
 export const FETCH_GLOBAL_STATS_DATA = 'FETCH_GLOBAL_STATS_DATA';
 const UPDATE_GLOBAL_STATS_DATA = 'UPDATE_GLOBAL_STATS_DATA';
+
+export const FETCH_GLOBAL_STATS_DATA_WITH_COORDINATES = 'FETCH_GLOBAL_STATS_DATA_WITH_COORDINATES';
+const UPDATE_GLOBAL_STATS_DATA_WITH_COORDINATES = 'UPDATE_GLOBAL_STATS_DATA_WITH_COORDINATES';
 
 export const FETCH_EVOLUTION_STATS = 'FETCH_EVOLUTION_STATS';
 const UPDATE_EVOLUTION_STATS = 'UPDATE_EVOLUTION_STATS';
@@ -57,6 +61,12 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         globalStats: action.value,
+      };
+
+    case UPDATE_GLOBAL_STATS_DATA_WITH_COORDINATES:
+      return {
+        ...state,
+        globalStatsWithCoordinates: action.value,
       };
 
     case UPDATE_EVOLUTION_STATS:
@@ -124,6 +134,14 @@ export const fetchGlobalStatsData = () => ({
 });
 export const updateGLobalStatsData = (value) => ({
   type: UPDATE_GLOBAL_STATS_DATA,
+  value,
+});
+
+export const fetchGlobalStatsDataWithCoordinates = () => ({
+  type: FETCH_GLOBAL_STATS_DATA_WITH_COORDINATES,
+});
+export const updateGLobalStatsDataWithCoordinates = (value) => ({
+  type: UPDATE_GLOBAL_STATS_DATA_WITH_COORDINATES,
   value,
 });
 

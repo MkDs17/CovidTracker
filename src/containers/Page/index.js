@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     activeCountry: state.data.activeCountry,
     statsData: state.data.statsData,
     globalStats: state.data.globalStats,
+    globalStatsWithCoordinates: state.data.globalStatsWithCoordinates,
     dailyStats: state.data.dailyStats,
     countriesOptions: state.data.countriesOptions,
     yesterdayStats: state.data.yesterdayStats,

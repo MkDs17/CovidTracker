@@ -6,10 +6,13 @@ import './page.scss';
 
 import Cards from '../../containers/Page/Cards';
 import Mac from './Mac';
+import Map from './Map';
 import EvolutionCurve from '../../containers/Page/EvolutionCurve';
 import Yesterday from './Yesterday';
 
-import { getThreeMostAffected, getPourcentageEvolution } from '../../utils/functions';
+import { getThreeMostAffected, getPourcentageEvolution, getDataForMap } from '../../utils/functions';
+
+import countriesdataBase from '../../data/countriesDB.json';
 
 const Page = ({ countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, onLoadEvolutionStats, yesterdayStats }) => {
   // Set Most Affected Countries stats 
@@ -20,6 +23,8 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
   const [activeEvolution, setActiveEvolution] = useState();
 
   const [loader, setLoaderStatement] = useState(true);
+
+  const [dataForMapComponent, setDataForMapComponent] = useState([]);
 
   useEffect(() => {
     if (globalStats != null && countries !== null) {
@@ -34,11 +39,18 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
     setActiveEvolution(getPourcentageEvolution(globalStats, dailyStats, countries, activeCountry));
   }, [activeRange, dailyStats, activeCountry]);
 
+  // Use effect for the loading Component
   useEffect(() => {
     if (!_.isEmpty(countries) & !_.isEmpty(countriesOptions) && !_.isEmpty(activeCountry) && !_.isEmpty(statsData) && !_.isEmpty(globalStats) && !_.isEmpty(dailyStats), !_.isEmpty(yesterdayStats)) {
       setLoaderStatement(false);
     }
   }, [countries, countriesOptions, activeCountry, statsData, globalStats, dailyStats, yesterdayStats]);
+
+  useEffect(() => {
+    if (!_.isEmpty(globalStats)) {
+      setDataForMapComponent(getDataForMap(globalStats, countriesdataBase));
+    }
+  }, [globalStats]);
 
   return (
     <div id="page">
@@ -63,6 +75,8 @@ const Page = ({ countries, countriesOptions, activeCountry, statsData, globalSta
             { !_.isEmpty(mostAffectedCountries) && <Mac stats={mostAffectedCountries} /> }
 
             <EvolutionCurve />
+
+            { !_.isEmpty(dataForMapComponent) && <Map stats={dataForMapComponent} /> }
           </>
         )}
 
