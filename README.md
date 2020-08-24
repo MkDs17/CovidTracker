@@ -21,7 +21,7 @@ Web application built with React for Covid-19 data visualization
 
 ## Roadmap
 
-🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**2 / 5** goals completed **(40%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Aug 15 2020**
+🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**3 / 5** goals completed **(60%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Aug 24 2020**
 
 | Status | Goal | Labels | Repository |
 | :---: | :--- | --- | --- |
@@ -29,7 +29,7 @@ Web application built with React for Covid-19 data visualization
 | ✔  | Add Yesterday Component   | `done`               | [dev](https://github.com/MkDs17/CovidTracker/tree/dev)               |
 | ❌ | Format numbers in Chart   | `todo`               |                                                                      |
 | ❌ | Improve Chart design      | `todo`               |                                                                      |
-| ❌ | Create map Component      | `in progress`        | [dev](https://github.com/MkDs17/CovidTracker/tree/dev_mapComponent)  |
+| ✔  | Create map Component      | `done`               | [dev](https://github.com/MkDs17/CovidTracker/tree/dev_mapComponent)  |
 
 ----------------
 
